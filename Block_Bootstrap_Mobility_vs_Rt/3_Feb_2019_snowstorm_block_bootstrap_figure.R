@@ -1,7 +1,6 @@
 ########################################################################################
 ## Moving window cross correlations between Rt and mobility
 ## Figure S7: February 2019 snowstorm; plotting correlations for each window
-## Mean cross-correlations between Rt and mobility during Feb 2019
 ########################################################################################
 library(zoo)
 library(dplyr)
