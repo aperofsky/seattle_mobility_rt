@@ -82,7 +82,7 @@ inf_to_case = diff(plnorm(t.scale,meanlog=meanlog,sdlog=sdlog))
 inf_to_case_adj = inf_to_case/sum(inf_to_case) #make sure sums to 1
 
 
-#observations are a function of latent infections in the population (ex: daily cases)
+#observations are a function of latent infections in the population
 obs <-  epiobs(formula = cases ~ 0 + factor(day, ordered = FALSE), 
                family = "neg_binom",
                link = "logit",
