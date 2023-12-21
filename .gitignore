@@ -40,3 +40,5 @@ co-est2019-alldata.csv
 
 # figure files
 *.png
+
+.DS_Store
