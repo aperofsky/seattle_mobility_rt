@@ -1,5 +1,5 @@
 # seattle_mobility_rt
-Code and data to reproduce the results and figures in Perofsky _et al._ 2023. "Impacts of human mobility on the citywide transmission dynamics of respiratory viruses in pre- and post-COVID-19 pandemic years"
+Code and data to reproduce the results and figures in Perofsky _et al._ 2023. "Impacts of human mobility on the citywide transmission dynamics of respiratory viruses in pre- and post-COVID-19 pandemic years". [Preprint](https://doi.org/10.1101/2023.10.31.23297868)
 
 ## Abstract
 
