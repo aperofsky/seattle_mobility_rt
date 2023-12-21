@@ -34,6 +34,8 @@ po/*~
 # RStudio Connect folder
 rsconnect/
 
+.Rhistory
+
 # large census files
 cbg_b00.csv
 co-est2019-alldata.csv
