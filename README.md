@@ -1,0 +1,8 @@
+# seattle_mobility_rt
+Code and data to reproduce the results and figures in Perofsky _et al._ 2023. "Impacts of human mobility on the citywide transmission dynamics of respiratory viruses in pre- and post-COVID-19 pandemic years"
+
+## Abstract
+
+Many studies have used mobile device location data to model SARS-CoV-2 dynamics, yet relationships between mobility behavior and endemic respiratory pathogens are less understood. We studied the effects of population mobility on the transmission of 16 endemic viruses and SARS-CoV-2 in Seattle over a 4-year period, 2018-2022. Before 2020, visits to schools and daycares, within-city mixing, and visitor inflow preceded or coincided with seasonal outbreaks of endemic viruses. Pathogen circulation dropped substantially after the initiation of COVID-19 stay-at-home orders in March 2020. During this period, mobility was a positive, leading indicator of transmission of all endemic viruses and lagging and negatively correlated with SARS-CoV-2 activity. Mobility was briefly predictive of SARS-CoV-2 transmission when restrictions relaxed but associations weakened in subsequent waves. The rebound of endemic viruses was heterogeneously timed but exhibited stronger, longer-lasting relationships with mobility than SARS-CoV-2. Overall, mobility is most predictive of respiratory virus transmission during periods of dramatic behavioral change and at the beginning of epidemic waves.
+
+Data processing and statistical analyses are performed with the statistical computing software [R](https://www.r-project.org/) (version 4.3.0). Documentation forthcoming...
