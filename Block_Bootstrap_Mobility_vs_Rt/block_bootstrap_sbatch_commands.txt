@@ -1,0 +1,47 @@
+sbatch --gres=lscratch:500 --time=1-00:00:00 --mail-type=BEGIN,FAIL,TIME_LIMIT_90,END --exclusive --mem=16g h1n1_block_bootstrap.sh
+
+sbatch --gres=lscratch:500 --time=1-00:00:00 --mail-type=BEGIN,FAIL,TIME_LIMIT_90,END --exclusive --mem=16g ivb_block_bootstrap.sh
+
+sbatch --gres=lscratch:500 --time=1-00:00:00 --mail-type=BEGIN,FAIL,TIME_LIMIT_90,END --exclusive --mem=16g hCoV_HKU1_NL63_block_bootstrap.sh
+
+sbatch --gres=lscratch:500 --time=1-00:00:00 --mail-type=BEGIN,FAIL,TIME_LIMIT_90,END --exclusive --mem=16g hCoV_HKU1_NL63_block_bootstrap_rebound.sh
+
+sbatch --gres=lscratch:500 --time=1-00:00:00 --mail-type=BEGIN,FAIL,TIME_LIMIT_90,END --exclusive --mem=16g rsv_b_block_bootstrap.sh
+
+sbatch --gres=lscratch:500 --time=1-00:00:00 --mail-type=BEGIN,FAIL,TIME_LIMIT_90,END --exclusive --mem=16g rsv_b_block_bootstrap_rebound.sh
+
+sbatch --gres=lscratch:500 --time=1-00:00:00 --mail-type=BEGIN,FAIL,TIME_LIMIT_90,END --exclusive --mem=16g covid_block_bootstrap_masking.sh
+
+sbatch --gres=lscratch:500 --time=1-00:00:00 --mail-type=BEGIN,FAIL,TIME_LIMIT_90,END --exclusive --mem=16g adeno_block_bootstrap.sh
+
+sbatch --gres=lscratch:500 --time=1-00:00:00 --mail-type=BEGIN,FAIL,TIME_LIMIT_90,END --exclusive --mem=16g adeno_block_bootstrap_masking.sh
+
+sbatch --gres=lscratch:500 --time=1-00:00:00 --mail-type=BEGIN,FAIL,TIME_LIMIT_90,END --exclusive --mem=16g adeno_block_bootstrap_osi.sh
+
+sbatch --gres=lscratch:500 --time=1-00:00:00 --mail-type=BEGIN,FAIL,TIME_LIMIT_90,END --exclusive --mem=16g rhino_block_bootstrap.sh
+
+sbatch --gres=lscratch:500 --time=1-00:00:00 --mail-type=BEGIN,FAIL,TIME_LIMIT_90,END --exclusive --mem=16g hpiv_1_2_block_bootstrap.sh
+
+sbatch --gres=lscratch:500 --time=1-00:00:00 --mail-type=BEGIN,FAIL,TIME_LIMIT_90,END --exclusive --mem=30g rhino_block_bootstrap_masking.sh
+
+sbatch --gres=lscratch:500 --time=1-00:00:00 --mail-type=BEGIN,FAIL,TIME_LIMIT_90,END --exclusive --mem=30g rhino_block_bootstrap_osi.sh
+
+sbatch --gres=lscratch:500 --time=1-00:00:00 --mail-type=BEGIN,FAIL,TIME_LIMIT_90,END --exclusive --mem=30g covid_block_bootstrap.sh
+
+sbatch --gres=lscratch:500 --time=1-00:00:00 --mail-type=BEGIN,FAIL,TIME_LIMIT_90,END --exclusive --mem=30g covid_block_bootstrap_osi.sh
+
+sbatch --gres=lscratch:500 --time=1-00:00:00 --mail-type=BEGIN,FAIL,TIME_LIMIT_90,END --exclusive --mem=30g hCoV_229E_OC43_block_bootstrap.sh
+
+sbatch --gres=lscratch:500 --time=1-00:00:00 --mail-type=BEGIN,FAIL,TIME_LIMIT_90,END --exclusive --mem=30g hCoV_229E_OC43_block_bootstrap_rebound.sh
+
+sbatch --gres=lscratch:500 --time=1-00:00:00 --mail-type=BEGIN,FAIL,TIME_LIMIT_90,END --exclusive --mem=30g rsv_a_block_bootstrap.sh
+
+sbatch --gres=lscratch:500 --time=1-00:00:00 --mail-type=BEGIN,FAIL,TIME_LIMIT_90,END --exclusive --mem=30g hmpv_block_bootstrap.sh
+
+sbatch --gres=lscratch:500 --time=1-00:00:00 --mail-type=BEGIN,FAIL,TIME_LIMIT_90,END --exclusive --mem=30g hmpv_block_bootstrap_rebound.sh
+
+sbatch --gres=lscratch:500 --time=1-00:00:00 --mail-type=BEGIN,FAIL,TIME_LIMIT_90,END --exclusive --mem=30g hpiv_block_bootstrap.sh
+
+sbatch --gres=lscratch:500 --time=1-00:00:00 --mail-type=BEGIN,FAIL,TIME_LIMIT_90,END --exclusive --mem=30g hpiv_block_bootstrap_rebound.sh
+
+sbatch --gres=lscratch:500 --time=1-00:00:00 --mail-type=BEGIN,FAIL,TIME_LIMIT_90,END --exclusive --mem=50g snowstorm.sh
