@@ -128,7 +128,7 @@ rhino_p_all = p1 + p2 + p3 + plot_layout(ncol = 3)+
 rhino_p_all
 
 ############################
-### adeno
+### adenovirus
 ############################
 names(com_2020_df_lm)
 adeno_df_lim = com_2020_df_lm_scaled %>% 

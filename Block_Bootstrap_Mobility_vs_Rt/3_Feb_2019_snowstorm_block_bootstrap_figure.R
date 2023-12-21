@@ -138,6 +138,10 @@ levels(all_endemic_results_avg$organism) <- c(
 unique(all_endemic_results_avg$organism)
 # color_vec <- c("#332288", "#6699CC", "#88CCEE", "#44AA99", "#117733", "#999933", "#DDCC77", "#661100", "#CC6677", "#AA4466", "#882255", "#AA4499")
 
+########################################################################################
+## Figure S7. Plot snowstorm block bootstrap
+########################################################################################
+
 ## only include colors for pathogens circulating during Feb 2019
 color_vec <- c(
   "#332288",

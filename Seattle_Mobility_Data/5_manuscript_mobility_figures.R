@@ -1,3 +1,4 @@
+## start here if you don't have access to the raw SafeGraph data
 ####################################################################################
 ## Mobility figures
 ## Figure S4: % change in baseline for individual POI categories
@@ -16,7 +17,7 @@ library(pals)
 
 combined_mob <- read_rds("Seattle_Mobility_Data/mobility_data/mobility_metrics_for_epidemia.rds") %>% as_tibble()
 combined_mob$date <- as.Date(combined_mob$date)
-# combined_mob$epi_date <- as.Date(combined_mob$epi_date)
+combined_mob$epi_date <- as.Date(combined_mob$epi_date)
 range(combined_mob$date)
 names(combined_mob)
 

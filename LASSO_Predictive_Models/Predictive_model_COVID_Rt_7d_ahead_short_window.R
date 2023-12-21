@@ -438,7 +438,7 @@ r=ggplot() +
 r
 
 ########################################################################################
-## Predictive accuracy
+## Predictive accuracy: Table S3
 ########################################################################################
 
 rmse(predicted=res_ARGO$predict_7d_ahead, actual=res_ARGO2$data_7d_ahead)# 0.031
@@ -525,9 +525,6 @@ p = ggplot()+
   scale_x_date(expand=c(0,0),date_breaks = "3 months",date_labels = "%b %y",limits = c(as.Date("2020-02-26"),as.Date("2022-04-30")))+
   theme_bw(base_size = 16)+
   theme(legend.position = "bottom")+
-  # scale_color_manual(name="Model",
-  #                    values=c("#D7191C","#FDAE61","#2B83BA"),
-  #                    breaks=c("AR-SG-Rhino","AR","SG-Rhino"))+
   scale_color_manual(name="Model",
                      values=c("#D7191C","#2B83BA","purple", "#FDAE61"),
                      breaks=c("AR-Mobility-RHINO","Mobility-RHINO","Mobility","AR"))+
@@ -568,7 +565,7 @@ cor(res_GT_RHINO_sah$predict_7d_ahead, res_ARGO2_sah$data_7d_ahead,  method = "p
 cor(res_GT_sah$predict_7d_ahead, res_ARGO2_sah$data_7d_ahead,  method = "pearson", use = "complete.obs")#0.94
 cor(res_AR_sah$predict_7d_ahead, res_ARGO2_sah$data_7d_ahead,  method = "pearson", use = "complete.obs")#1.0
 
-## mobility models: percent difference between SAH and whole study period accuracy
+## mobility models: percent difference between SAH and whole study period accuracy (reported in supplementary results)
 # ((original value - new value) / original value) * 100
 ## sars-cov-2 rmse
 ((0.148-0.121)/0.148) * 100 #18.2%
