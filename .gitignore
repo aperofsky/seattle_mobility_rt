@@ -42,4 +42,4 @@ co-est2019-alldata.csv
 *.png
 
 ## additional file types
-**/.DS_Store
+.DS_Store
