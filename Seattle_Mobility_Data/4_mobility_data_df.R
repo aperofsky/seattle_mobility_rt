@@ -1,7 +1,7 @@
 
 ## Note: code is for the raw SafeGraph visits, but Dewey doesn't permit sharing of the raw mobility data
 ## requires outputs from 1_import_SafeGraph_Data.R and 2_process_Safegraph_data_and_city_maps.R but these can't be shared publicly
-
+## Inputs from SafeGraph are not publicly available, but you can run the code if you have access to the SafeGraph data
 ##########################################################################
 ## Combine SG data with other population behavior datasets
 ##########################################################################
@@ -15,7 +15,7 @@ library(readr)
 library(timeDate)
 library(lubridate)
 
-# dir <- "Seattle_SG_Mobility/SG_data/"
+dir <- "Seattle_SG_Mobility/SG_data/" # filepath to my SG data
 
 ## Safegraph large scale pop movements
 movement <- read_rds(paste0(dir, "within_and_between_cbg_movement_indicators_up_to_2022_09_26_red.rds"))

@@ -436,7 +436,6 @@ r = ggplot() +
   labs(x = "Date", y = "Rt", color = "Model") +
   theme_classic(base_size = 16) +
   theme(
-    # aspect.ratio = 0.5,
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),legend.position = "bottom"
   ) + 
@@ -457,7 +456,7 @@ r = ggplot() +
 r
 
 ########################################################################################
-## Predictive accuracy
+## Predictive accuracy: Table S3
 ########################################################################################
 
 rmse(predicted=res_ARGO$predict_7d_ahead, actual=res_ARGO2$data_7d_ahead)# 0.011

@@ -1,6 +1,7 @@
 ####################################################################################
 # Import and combine external data sources on % staying home, % masking, NPI stringency
 ####################################################################################
+# Note: these outputs are already available in the Seattle_Mobility_Data/mobility_data folder
 # Safegraph % staying home (via covidcast)
 # Facebook % masking in public (via covidcast)
 # ONY % masking in public (via Rader et al 2021 github repo, obtained from Leech 2020)

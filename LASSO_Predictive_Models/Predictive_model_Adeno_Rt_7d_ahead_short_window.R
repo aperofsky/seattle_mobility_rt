@@ -290,7 +290,6 @@ label_df = data.frame(var = unique(coef_ARGO$regressor),
                                 "restaurants",
                                 "groceries and pharmacies",
                                 "transit",
-                                # "hospitals",
                                 "religious organizations",
                                 "child daycare",
                                 "elementary and high schools",
@@ -315,7 +314,6 @@ orders = c(unique(plot_df$label)[1:15],
            "restaurants",
            "groceries and pharmacies",
            "transit",
-           # "hospitals",
            "religious organizations",
            "child daycare",
            "elementary and high schools",
@@ -336,7 +334,6 @@ p <-p + theme(legend.position = "right")+
   theme(strip.background = element_rect(colour="white"))+
   theme(legend.title=element_text(size=14))+
   theme(legend.text=element_text(size=10))+
-  # ggtitle("adenovirus AR-SG: time-varying coefficients") +
   labs(x = "", y = "") +
   removeGrid()#ggExtra
 p
@@ -363,7 +360,6 @@ q <-q + theme(legend.position = "right")+
   theme(strip.background = element_rect(colour="white"))+
   theme(legend.title=element_text(size=14))+
   theme(legend.text=element_text(size=10))+
-  # ggtitle("adenovirus AR-SG: time-varying coefficients") +
   labs(x = "", y = "") +
   removeGrid()#ggExtra
 q
@@ -456,7 +452,7 @@ r
 # save_plot(r,filename = "figures/fig_s20_adenovirus_rt_predictive_model_fit_7d_ahead.png",base_width = 16,base_height = 6)
 
 ########################################################################################
-## Predictive accuracy
+## Predictive accuracy: Table S3
 ########################################################################################
 
 rmse(predicted=res_ARGO$predict_7d_ahead, actual=res_ARGO2$data_7d_ahead)# 0.035

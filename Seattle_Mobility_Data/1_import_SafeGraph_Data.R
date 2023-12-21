@@ -1,4 +1,5 @@
 ## Note: code is for the raw SafeGraph visits, but Dewey doesn't permit sharing of the raw mobility data
+## Inputs and outputs are not publicly available, but you can run the code if you have access to the SafeGraph data
 ####################################################
 ## Import and organize/clean SafeGraph data: home panel, visit panel, normalization stats, weekly patterns
 ## Join SG data with census data (e.g., pop size by cbg, county, etc.)
@@ -44,7 +45,7 @@ head(census_data)
 census_data %>% filter(state == "WA")
 
 ## get census block group population sizes
-pop_csv <- read.csv("Seattle_Mobility_Data/mobility_data/cbg_b00.csv") # from SafeGraph's open census data
+pop_csv <- read.csv("Seattle_Mobility_Data/mobility_data/cbg_b00.csv") # from SafeGraph's open census data (note: not included in this repo due to large file size)
 
 cbg_pop_sizes <- pop_csv %>%
   dplyr::select(census_block_group, B00001e1) %>%

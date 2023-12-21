@@ -1,3 +1,4 @@
+## Input data are provided in the Epidemia_Models/epidemia_rt_output folder, so it's not necessary to run the Epidemia models to run this code
 ###################################################
 ## Combine Rt estimates from all pathogens
 ## Compare SCAN COVID incidence vs King County cases

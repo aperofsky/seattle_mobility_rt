@@ -1,6 +1,7 @@
 
 ## Note: code is for the raw SafeGraph visits, but Dewey doesn't permit sharing of the raw mobility data
-## requires outputs from 1_import_SafeGraph_Data.R but these can't be shared publicly
+## Requires outputs from 1_import_SafeGraph_Data.R but these can't be shared publicly
+## Inputs and outputs are not publicly available, but you can run the code if you have access to the SafeGraph data
 ########################################################################################################
 ## 1. Combine SafeGraph Weekly Patterns dataset with Home and Visitor Panel data
 ## 2. Adjust foot traffic indices by SG panel size
@@ -159,7 +160,7 @@ norm_seattle_blockgroups <-
 # Data sets for Scaling Visits
 #####################################
 ## home panel
-# dir <- "Seattle_SG_Mobility/SG_data/" #directory where SG files are located
+dir <- "Seattle_SG_Mobility/SG_data/" #directory where my SG files are located
 load(paste0(dir, "home_and_visitor_panel_all_years.rds"))
 
 head(home_and_visitor_panel)
@@ -271,7 +272,8 @@ home_and_visitor_panel3$home_panel_poi_county <- as.integer(home_and_visitor_pan
 home_and_visitor_panel3$home_panel_poi_cbg <- as.integer(home_and_visitor_panel3$home_panel_poi_cbg)
 home_and_visitor_panel3$home_panel_poi_state <- as.integer(home_and_visitor_panel3$home_panel_poi_state)
 
-## home panel size becomes really volatile in late 2021; large increases with no concurrent increase in foot traffic to POIs; no explanations from SG;
+## home panel size becomes really volatile in late 2021
+## large increases with no concurrent increase in foot traffic to POIs; no explanations from SG
 ## apply panel size from November 2021 to remaining dates
 home_and_visitor_panel4 <-
   home_and_visitor_panel3 %>%
@@ -547,7 +549,7 @@ weekly_visitors_cbg_within_seattle <-
   mutate(home_location = if_else(poi_cbg != visitor_home_cbg, "non_resident", "resident"))
 
 # get a Census API key at http://api.census.gov/data/key_signup.html
-# census_api_key("your key here",install = T)
+census_api_key("your key here",install = T) # use your API key 
 king <- get_acs(
   state = "WA", county = "King", geography = "block group",
   variables = "B01003_001", geometry = TRUE, year = 2019
@@ -1304,6 +1306,7 @@ map_combined <- plot_grid(
 )
 leg <- get_legend(july_2021_map + theme(legend.direction = "vertical"))
 map_combined2 <- plot_grid(map_combined, leg, nrow = 1, rel_widths = c(1, 0.1))
+
 # map_combined2
 # save_plot(map_combined2,
 #   filename = "SG_figures/within_seattle_movement_up_to_Jan_2022_with_deg_histogram.png",
@@ -1322,6 +1325,7 @@ map_combined <- plot_grid(
 leg <- get_legend(july_2021_map + theme(legend.direction = "vertical"))
 map_combined2 <- plot_grid(map_combined, leg, nrow = 1, rel_widths = c(1, 0.1))
 # map_combined2
+
 # save_plot(map_combined2,
 #   filename = "SG_figures/within_seattle_movement_up_to_Jan_2022_with_weighted_deg_histogram.png",
 #   base_width = 16, base_height = 8
@@ -1554,7 +1558,6 @@ tail(within_state_king)
 county_visitors_outside_state_seattle <-
   seattle_weekly_visitors_cbg_all_years %>%
   filter(poi_cbg %in% cbg_gps$GEOID10) %>%
-  # filter(scaled_visits_adj>4)%>%
   filter(poi_fips == "53033" & visitor_state_fips != "53") %>%
   group_by(start_date, visitor_state_fips, visitor_state) %>%
   summarise(
@@ -1565,7 +1568,6 @@ county_visitors_outside_state_seattle <-
 # all of King Co.
 county_visitors_outside_state_king <-
   seattle_weekly_visitors_cbg_all_years %>%
-  # filter(scaled_visits_adj>4)%>%
   filter(poi_fips == "53033" & visitor_state_fips != "53") %>%
   group_by(start_date, visitor_state_fips, visitor_state) %>%
   summarise(
