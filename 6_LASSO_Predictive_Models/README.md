@@ -9,6 +9,10 @@
     *   Daily vaccination coverage in King County, Washington. Data are publicly accessible through the [Public Health – Seattle & King County COVID-19 Vaccination dashboard](https://kingcounty.gov/en/dept/dph/health-safety/disease-illness/covid-19/data/vaccination).
 
 * `3_VOC_data` folder
+    *   `multinomial_KC_voc_prediction_for_paper.R`
+        *   Use a multinomial logistic regression (MLR) model to predict the daily frequencies of SARS-CoV-2 clades circulating in King County, WA, with observed clade frequencies and time since first detection as predictors.
+        *   Figure S22: Plot predicted clade frequencies over time.
+        
     *   Nextstrain-curated SARS-CoV-2 sequence metadata (from GISAID) can be obtained via the [nextstrain-cli tool](https://docs.nextstrain.org/projects/cli/en/stable/).
         *   In the terminal, change your current directory to `6_LASSO_Predictive_Models/3_VOC_data/`.
         *   Download Nextstrain-curated metadata and rename file to `gisaid_metadata.tsv.gz`
@@ -17,9 +21,6 @@
 nextstrain remote download s3://nextstrain-ncov-private/metadata.tsv.gz
 mv metadata.tsv.gz gisaid_metadata.tsv.gz
 ```
-    *   `multinomial_KC_voc_prediction_for_paper.R`
-        *   Use a multinomial logistic regression (MLR) model to predict the daily frequencies of SARS-CoV-2 clades circulating in King County, WA, with observed clade frequencies and time since first detection as predictors.
-        *   Figure S22: Plot predicted clade frequencies over time.
         
 ### Models
 * `4_Forecasting_Models` folder
