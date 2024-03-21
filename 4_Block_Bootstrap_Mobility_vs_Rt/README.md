@@ -8,7 +8,7 @@
     3.  Run the following sbatch command:
 ```
 sbatch --gres=lscratch:500 --time=1-00:00:00 --mail-type=BEGIN,FAIL,TIME_LIMIT_90,END --exclusive --mem=60g snowstorm_sp.sh
-```
+````
         Outputs will be saved to your `data` directory on Biowulf. 
     4.  Transfer outputs to `biowulf_block_bootstrap_1mo_rolling_window_output_spearman` subfolder on your local machine.
 
@@ -20,7 +20,7 @@ sbatch --gres=lscratch:500 --time=1-00:00:00 --mail-type=BEGIN,FAIL,TIME_LIMIT_9
     4.  Run the following `swarm` command:
 ```
 swarm -f Run_5mo_rolling_block_bootstrap_swarm.txt -g 5 --gres=lscratch:500 --time=12:00:00 --module R/4.2
-```
+````
         Outputs will be saved to your `data` directory on Biowulf. Most jobs are completed within 2 hours using `swarm`. Jobs submitted via individual `sbatch` commands take less time (less than 30 minutes).
     5.   Transfer outputs to `BB_5mo_rolling_window_output_spearman` subfolder on your local machine.
     

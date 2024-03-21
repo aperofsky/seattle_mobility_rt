@@ -10,8 +10,9 @@
 * `1_epidemia_Rt_figures.R`:
     *   Combine Rt estimates from all pathogens
     *   Compare time series of SFS/SCAN COVID incidence to confirmed King County cases (Figure S27)
-    *   Plot pathogen Rt and incidences during winter 2018 - 2018 (Figure S5)
+    *   Plot pathogen Rt and incidences during winter 2018 - 2019 (Figure S5)
     *   Plot pathogen Rt and incidences for whole study period (Figure 1)
 
 * `2_change_in_rt_nonparametric_bootstrap.R`:
-    *   Compare Rt before and after 2 major events: Feb 2019 snowstorm and Feb 29, 2020 State of Emergency Declaration, using non-parametric bootstrap tests for the ratio of two means
+    *   Compare Rt during the 2 weeks before and after 2 major events: Feb 2019 snowstorm and Feb 2020 State of Emergency Declaration
+    *   Use non-parametric bootstrap tests for the ratio of two means
