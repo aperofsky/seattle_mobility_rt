@@ -28,8 +28,8 @@ renv::restore() #install the specific package versions recorded in the lockfile 
 * `6_LASSO_Predictive_Models` folder: Short-term forecasts of rhinovirus, adenovirus, and SARS-CoV-2 Rt, with activity of the target virus during the prior 2 weeks (14 autoregressive terms), cell phone mobility trends, and climatic data as covariates. See README file within folder for more details.
 
 <figure>
-<figure-caption>An overview of statistical analyses and their various inputs.</figure-caption>
 <img src="figures/fig_s28_flowchart_paper_analyses.pdf" alt="analysis flowchart"/>
+<figure-caption>An overview of statistical analyses and their various inputs.</figure-caption>
 </figure>
 
 ## Data Availability
