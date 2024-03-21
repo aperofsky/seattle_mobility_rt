@@ -1,4 +1,4 @@
-## `6_LASSO_Predictive_Models` folder: Short-term forecasts of rhinovirus, adenovirus, and SARS-CoV-2 Rt
+## Short-term forecasts of rhinovirus, adenovirus, and SARS-CoV-2 Rt
 
 ### Model inputs
 * `1_Climate_data` folder

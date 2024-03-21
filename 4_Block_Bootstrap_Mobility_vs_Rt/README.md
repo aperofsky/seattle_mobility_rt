@@ -1,4 +1,4 @@
-## `4_Block_Bootstrap_Mobility_vs_Rt` folder: Estimate time series cross-correlations between mobility and Rt
+## Estimate time series cross-correlations between mobility and Rt
 
 * `1_snowstorm_rolling_window_block_bootstrap` folder
     *   Estimate cross-correlations between mobility and Rt during winter 2018-2019

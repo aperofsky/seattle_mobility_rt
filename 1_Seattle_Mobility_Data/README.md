@@ -1,4 +1,4 @@
-##  `1_Seattle_Mobility_Data` folder: Create cell phone mobility datasets and combine with data on masking and NPI stringency
+## Create cell phone mobility datasets and combine with data on masking and NPI stringency
 
 * `1_import_SafeGraph_Data.R`:
     *   Note: Input and output data cannot be shared but you can run this code if you have access to the raw SafeGraph data.
