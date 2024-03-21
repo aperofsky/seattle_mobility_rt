@@ -1,0 +1,27 @@
+sbatch --gres=lscratch:500 --time=6-00:00:00 --mail-type=ALL,TIME_LIMIT_90 --cpus-per-task=5 --ntasks-per-core=1 --mem=60g rhino_rt_epidemia.sh
+
+sbatch --gres=lscratch:500 --time=6-00:00:00 --mail-type=ALL,TIME_LIMIT_90 --cpus-per-task=5 --ntasks-per-core=1 --mem=60g adeno_rt_epidemia.sh
+
+sbatch --gres=lscratch:500 --time=6-00:00:00 --mail-type=ALL,TIME_LIMIT_90 --cpus-per-task=5 --ntasks-per-core=1 --mem=60g entero_rt_epidemia.sh
+
+sbatch --gres=lscratch:500 --time=4-00:00:00 --mail-type=ALL,TIME_LIMIT_90 --cpus-per-task=5 --ntasks-per-core=1 --mem=20g seasonal_cov_229E_OC43_rt_epidemia.sh
+
+sbatch --gres=lscratch:500 --time=4-00:00:00 --mail-type=ALL,TIME_LIMIT_90 --cpus-per-task=5 --ntasks-per-core=1 --mem=20g seasonal_cov_HKU1_NL63_rt_epidemia.sh
+
+sbatch --gres=lscratch:500 --time=4-00:00:00 --mail-type=ALL,TIME_LIMIT_90 --cpus-per-task=5 --ntasks-per-core=1 --mem=20g h3n2_rt_epidemia.sh
+
+sbatch --gres=lscratch:500 --time=4-00:00:00 --mail-type=ALL,TIME_LIMIT_90 --cpus-per-task=5 --ntasks-per-core=1 --mem=20g hmpv_rt_epidemia.sh
+
+sbatch --gres=lscratch:500 --time=4-00:00:00 --mail-type=ALL,TIME_LIMIT_90 --cpus-per-task=5 --ntasks-per-core=1 --mem=20g hpiv_rt_epidemia.sh
+
+sbatch --gres=lscratch:500 --time=4-00:00:00 --mail-type=ALL,TIME_LIMIT_90 --cpus-per-task=5 --ntasks-per-core=1 --mem=20g ibv_rt_epidemia.sh
+
+sbatch --gres=lscratch:500 --time=4-00:00:00 --mail-type=ALL,TIME_LIMIT_90 --cpus-per-task=5 --ntasks-per-core=1 --mem=20g rsv_a_rt_epidemia.sh
+
+sbatch --gres=lscratch:500 --time=4-00:00:00 --mail-type=ALL,TIME_LIMIT_90 --cpus-per-task=5 --ntasks-per-core=1 --mem=20g rsv_b_rt_epidemia.sh
+
+sbatch --gres=lscratch:500 --time=4-00:00:00 --mail-type=ALL,TIME_LIMIT_90 --cpus-per-task=5 --ntasks-per-core=1 --mem=20g h1n1_rt_epidemia.sh
+
+sbatch --gres=lscratch:500 --time=4-00:00:00 --mail-type=ALL,TIME_LIMIT_90 --cpus-per-task=5 --ntasks-per-core=1 --mem=20g hpiv_1_2_epidemia.sh
+
+sbatch --gres=lscratch:500 --time=4-00:00:00 --mail-type=BEGIN,FAIL,TIME_LIMIT_90,END --cpus-per-task=5 --ntasks-per-core=1 --mem=40g covid_rt_epidemia.sh

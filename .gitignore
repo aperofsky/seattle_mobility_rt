@@ -40,8 +40,11 @@ rsconnect/
 cbg_b00.csv
 co-est2019-alldata.csv
 
+#large metadata file
+gisaid_metadata.tsv.gz
+
 # figure files
-*.png
+#*.png
 
 ## additional file types
 .DS_Store
