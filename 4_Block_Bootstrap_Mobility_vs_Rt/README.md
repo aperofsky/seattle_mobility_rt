@@ -3,8 +3,8 @@
 **Note: Sections 1 and 2 are computationally intensive and should be run on a HPC cluster.**
 
 `1_snowstorm_rolling_window_block_bootstrap/`
-*   Estimate daily rolling cross-correlations between endemic virus Rt and mobility during winter 2018-2019
-*   To run block-bootstrapped cross-correlations on the NIH Biowulf cluster, transfer the following files to a folder named `SFS_Rt_Block_Bootstrap/` in your `home` directory on the cluster: 
+*   Estimate daily rolling cross-correlations between endemic virus Rt and mobility during winter 2018-2019, using the NIH Biowulf cluster.
+*   Transfer the following files to a folder named `SFS_Rt_Block_Bootstrap/` in your `home` directory: 
     *   `block_bootstrap_snowstorm_spearman.R`
     *   `combined_rt_mobility_15day_mv_avg.rds`
     *   `utils.R`
@@ -19,14 +19,13 @@ sbatch --gres=lscratch:500 --time=1-00:00:00 --mail-type=BEGIN,FAIL,TIME_LIMIT_9
 *   Runtime: The job can take several hours to run on the cluster because the cross-correlations for each pathogen are run sequentially. The code could be reworked so that there are separate jobs for each pathogen, either via individual `sbatch` commands or a `swarm` script.
 
 `2_post_2019_rolling_window_block_bootstrap/`
-*   Estimate cross-correlations between Rt and mobility during Fall 2019 to Summer 2022.
-*   To run block-bootstrapped cross-correlations on the NIH Biowulf cluster:
-    *   `create_swarm_5mo_block_boostrap.R`
-        *   Create `swarm` script  `Run_5mo_rolling_block_bootstrap_swarm.txt` to submit several jobs at one time to the cluster. `Run_5mo_rolling_block_bootstrap_swarm.txt` is already provided but this R script shows how to produce a `swarm` script for submitting many similar jobs simultaneously.
-    *   Transfer the following files to the `SFS_Rt_Block_Bootstrap` folder in your `home` directory on the cluster. 
-        *   `Run_5mo_rolling_block_bootstrap_swarm.txt`
-        *   All the scripts within `BB_5mo_rolling_window_R_scripts_spearman/` (transfer individual files and not the folder itself)
-        *   `combined_rt_mobility_15day_mv_avg.rds` 
+*   Estimate cross-correlations between Rt and mobility during Fall 2019 to Summer 2022, , using the NIH Biowulf cluster.
+*   `create_swarm_5mo_block_boostrap.R`
+    *   Create `swarm` script  `Run_5mo_rolling_block_bootstrap_swarm.txt` to submit several jobs at one time to the cluster. `Run_5mo_rolling_block_bootstrap_swarm.txt` is already provided but this R script shows how to produce a `swarm` script for submitting many similar jobs simultaneously.
+*   Transfer the following files to the `SFS_Rt_Block_Bootstrap` folder in your `home` directory on the cluster. 
+    *   `Run_5mo_rolling_block_bootstrap_swarm.txt`
+    *   All the scripts within `BB_5mo_rolling_window_R_scripts_spearman/` (transfer individual files and not the folder itself)
+    *   `combined_rt_mobility_15day_mv_avg.rds` 
 *   `ssh` into Biowulf and change your current directory to `SFS_Rt_Block_Bootstrap/`.
 *   Run the following `swarm` command:
 ```
