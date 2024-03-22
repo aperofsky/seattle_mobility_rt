@@ -38,7 +38,7 @@ renv::restore() #install the specific package versions recorded in the lockfile 
 
 * `4_Block_Bootstrap_Mobility_vs_Rt`: Estimate time series cross-correlations between pathogen Rt and mobility metrics. The README file within the folder includes details concerning the specific analyses and directions for how to run block-bootstrapped cross-correlations on the NIH Biowulf cluster.
 
-* `5_Mobility_Rt_GAMs`: Fit generalized additive models (GAMs) to pathogen Rt estimates, with a smoothed temporal trend and up to 2 smoothed mobility metrics as covariates.
+* `5_Mobility_Rt_GAMs`: Fit generalized additive models (GAMs) to pathogen Rt estimates, with a smoothed temporal trend and up to 2 smoothed mobility metrics as covariates. See README file within the folder for more details.
 
 * `6_LASSO_Predictive_Models` : Use moving window LASSO regression models to produce short-term forecasts of rhinovirus, adenovirus, and SARS-CoV-2 Rt. Model covariates include the activity of the target virus during the previous 2 weeks (14 autoregressive terms), cell phone mobility trends, the co-circulation of other viruses, and climatic data. Compare prediction accuracy across models with different combinations of covariates. The README file within the folder includes more details about model inputs.
 
