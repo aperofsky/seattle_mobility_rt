@@ -4,7 +4,7 @@
 
 `1_snowstorm_rolling_window_block_bootstrap/`
 *   Estimate daily rolling cross-correlations between endemic virus Rt and mobility during winter 2018-2019
-*   To run block-bootstrapped cross-correlations on the NIH Biowulf cluster, transfer the following files to a folder named `SFS_Rt_Block_Bootstrap` in your `home` directory on the cluster: 
+*   To run block-bootstrapped cross-correlations on the NIH Biowulf cluster, transfer the following files to a folder named `SFS_Rt_Block_Bootstrap/` in your `home` directory on the cluster: 
     *   `block_bootstrap_snowstorm_spearman.R`
     *   `combined_rt_mobility_15day_mv_avg.rds`
     *   `utils.R`
@@ -23,7 +23,6 @@ sbatch --gres=lscratch:500 --time=1-00:00:00 --mail-type=BEGIN,FAIL,TIME_LIMIT_9
 *   To run block-bootstrapped cross-correlations on the NIH Biowulf cluster:
     *   `create_swarm_5mo_block_boostrap.R`
         *   Create `swarm` script  `Run_5mo_rolling_block_bootstrap_swarm.txt` to submit several jobs at one time to the cluster. `Run_5mo_rolling_block_bootstrap_swarm.txt` is already provided but this R script shows how to produce a `swarm` script for submitting many similar jobs simultaneously.
-    *   If you'd like to run cross-correlation analyses individually, `sbatch` commands are listed in `block_bootstrap_sbatch_commands_spearman.txt`. To run `sbatch` commands, copy/paste them into your terminal window.
     *   Transfer the following files to the `SFS_Rt_Block_Bootstrap` folder in your `home` directory on the cluster. 
         *   `Run_5mo_rolling_block_bootstrap_swarm.txt`
         *   All the scripts within `BB_5mo_rolling_window_R_scripts_spearman/` (transfer individual files and not the folder itself)
@@ -35,6 +34,7 @@ swarm -f Run_5mo_rolling_block_bootstrap_swarm.txt -g 5 --gres=lscratch:500 --ti
 ```
 
 *   Outputs will be saved to your `data` directory on Biowulf.
+*   If you'd like to run cross-correlation analyses individually, `sbatch` commands are listed in `block_bootstrap_sbatch_commands_spearman.txt`. To run `sbatch` commands, copy/paste them into your terminal window.   
 *   After jobs are complete, transfer outputs to `BB_5mo_rolling_window_output_spearman/` on your local machine.
 *   Runtime: Most jobs complete within 2 hours using `swarm`. Jobs submitted via individual `sbatch` commands take less time (< 30 minutes). The above `swarm` command's memory and node specifications could be optimized to make the jobs run faster.
 
