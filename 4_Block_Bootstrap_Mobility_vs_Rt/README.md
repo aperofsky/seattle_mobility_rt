@@ -9,7 +9,7 @@
     *   `combined_rt_mobility_15day_mv_avg.rds`
     *   `utils.R`
     *   `snowstorm_sp.sh`
-*   `ssh` into Biowulf and change your current directory to `SFS_Rt_Block_Bootstrap/`.
+*   In your terminal window, `ssh` into Biowulf and change your current directory to `SFS_Rt_Block_Bootstrap/`.
 *   Run the following `sbatch` command:
 ```
 sbatch --gres=lscratch:500 --time=1-00:00:00 --mail-type=BEGIN,FAIL,TIME_LIMIT_90,END --exclusive --mem=60g snowstorm_sp.sh
@@ -26,7 +26,7 @@ sbatch --gres=lscratch:500 --time=1-00:00:00 --mail-type=BEGIN,FAIL,TIME_LIMIT_9
     *   `Run_5mo_rolling_block_bootstrap_swarm.txt`
     *   All the scripts within `BB_5mo_rolling_window_R_scripts_spearman/` (transfer individual files and not the folder itself)
     *   `combined_rt_mobility_15day_mv_avg.rds` 
-*   `ssh` into Biowulf and change your current directory to `SFS_Rt_Block_Bootstrap/`.
+*   In your terminal window, `ssh` into Biowulf and change your current directory to `SFS_Rt_Block_Bootstrap/`.
 *   Run the following `swarm` command:
 ```
 swarm -f Run_5mo_rolling_block_bootstrap_swarm.txt -g 5 --gres=lscratch:500 --time=12:00:00 --module R/4.2
