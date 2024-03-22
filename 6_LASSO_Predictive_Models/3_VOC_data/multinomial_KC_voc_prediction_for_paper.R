@@ -1,3 +1,7 @@
+########################################################################################
+## Multinomial logistic regression model to predict frequencies of SARS-CoV-2 clades circulating in King County, WA
+########################################################################################
+
 library(data.table)
 library(dplyr)
 library(readr)
@@ -13,43 +17,45 @@ library(RColorBrewer)
 ########################################################################################
 ## Import Nextstrain sequence data
 ########################################################################################
+# we do not provide this file in the GitHub repo because of its large size; See README file for download directions
+# nextstrain_lineage <- fread("6_LASSO_Predictive_Models/3_VOC_data/gisaid_metadata.tsv.gz")
+# head(nextstrain_lineage)
+# sort(names(nextstrain_lineage))
+# sort(unique(nextstrain_lineage$country))
+# sort(unique(nextstrain_lineage$Nextstrain_clade))
+# 
+# ## Clean data
+# ## filter to US sequences with good QC scores
+# nextstrain_lineage_us <- nextstrain_lineage %>%
+#   filter(country == "USA") %>%
+#   filter(QC_overall_status == "good")
+# rm(nextstrain_lineage)
+# 
+# ## filter to King County WA sequences
+# KC_variants <- nextstrain_lineage_us %>%
+#   filter(location == "King County WA") %>%
+#   dplyr::select(
+#     strain, date, region, country, division, location,
+#     region_exposure, country_exposure, division_exposure,
+#     host, Nextstrain_clade, pango_lineage, clade_nextstrain, clade_who,
+#     Nextclade_pango, originating_lab, submitting_lab
+#   )
+# rm(nextstrain_lineage_us)
+# 
+# KC_variants$date_char <- nchar(KC_variants$date)
+# KC_variants <- KC_variants %>%
+#   filter(date_char == 10) %>%
+#   dplyr::select(-date_char)
+# KC_variants$date <- as.Date(KC_variants$date)
+# range(KC_variants$date) # "2020-02-21" "2024-02-23"
+# 
+# KC_variants_2020_2022 <- KC_variants %>% filter(date < as.Date("2022-07-01"))
+# names(KC_variants_2020_2022)
+# sort(unique(KC_variants_2020_2022$Nextstrain_clade))
+# write_csv(KC_variants_2020_2022, file = "6_LASSO_Predictive_Models/3_VOC_data/king_county_SC2_clades_2020_2022.csv")
 
-nextstrain_lineage <- fread("6_LASSO_Predictive_Models/3_VOC_data/gisaid_metadata.tsv.gz")
-head(nextstrain_lineage)
-sort(names(nextstrain_lineage))
-sort(unique(nextstrain_lineage$country))
-sort(unique(nextstrain_lineage$Nextstrain_clade))
-
-## Clean data
-## filter to US sequences with good QC scores
-nextstrain_lineage_us <- nextstrain_lineage %>%
-  filter(country == "USA") %>%
-  filter(QC_overall_status == "good")
-rm(nextstrain_lineage)
-
-## filter to King County WA sequences
-KC_variants <- nextstrain_lineage_us %>%
-  filter(location == "King County WA") %>%
-  dplyr::select(
-    strain, date, region, country, division, location,
-    region_exposure, country_exposure, division_exposure,
-    host, Nextstrain_clade, pango_lineage, clade_nextstrain, clade_who,
-    Nextclade_pango, originating_lab, submitting_lab
-  )
-rm(nextstrain_lineage_us)
-
-KC_variants$date_char <- nchar(KC_variants$date)
-KC_variants <- KC_variants %>%
-  filter(date_char == 10) %>%
-  dplyr::select(-date_char)
-KC_variants$date <- as.Date(KC_variants$date)
-range(KC_variants$date) # "2020-02-21" "2024-02-23"
-
-KC_variants_2020_2022 <- KC_variants %>% filter(date < as.Date("2022-07-01"))
-names(KC_variants_2020_2022)
-sort(unique(KC_variants_2020_2022$Nextstrain_clade))
-write_csv(KC_variants_2020_2022, file = "6_LASSO_Predictive_Models/3_VOC_data/king_county_SC2_clades_2020_2022.csv")
-
+# start with King County sequence metadata here
+KC_variants_2020_2022 = read_csv("6_LASSO_Predictive_Models/3_VOC_data/king_county_SC2_clades_2020_2022.csv")
 range(KC_variants_2020_2022$date) #"2020-02-21" "2022-06-30"
 nrow(KC_variants_2020_2022)#9626
 length(unique(KC_variants_2020_2022$strain))#9626
@@ -117,7 +123,7 @@ ggplot(filled_df) +
 ggplot(filled_df) +
   geom_line(aes(x = date, y = cum_count, color = clade_new))
 
-## when do cum counts exceed 20?
+## when do cumulative counts exceed 20?
 filled_df %>%
   group_by(clade_new) %>%
   filter(cum_count >= 20) %>%
@@ -187,7 +193,7 @@ KC_variants_long$date <- as.Date(KC_variants_long$date)
 range(KC_variants_long$date)
 
 ########################################################################################
-## Multinomial logistic regression model
+## Multinomial logistic regression (MLR) model
 ########################################################################################
 
 KC_variants_lm <-
@@ -238,8 +244,10 @@ pred_df$clade_new <- factor(pred_df$clade_new, levels = c(
   "Omicron BA.4", "Omicron BA.5"
 ))
 
+## predicted clade frequencies
 write_rds(pred_df, file = "6_LASSO_Predictive_Models/3_VOC_data/KC_WA_covid_cases_by_variant_2020_2022.rds")
 
+## Plot predicted clade frequencies
 nb.cols <- 14
 mycolors <- colorRampPalette(brewer.pal(11, "RdBu"))(nb.cols)
 

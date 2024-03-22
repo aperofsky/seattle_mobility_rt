@@ -1,5 +1,5 @@
 ########################################################################################
-## Predictive model of Rhinovirus Rt
+## Forecasting models of Adenovirus Rt
 ########################################################################################
 
 library(readr)
@@ -28,7 +28,7 @@ rt_df <- read_csv("2_Epidemia_Models/rt_all_pathogens_15day_mv_avg.csv")
 
 climate_df <- read_csv("6_LASSO_Predictive_Models/1_Climate_data/seattle_daily_weather_variables_2023_01_30.csv")
 
-## interpolate missing Precipitation data
+## interpolate missing values
 climate_df <- climate_df %>%
   complete(date = seq.Date(as.Date("2018-01-01"), as.Date("2022-09-30"), by = "day")) %>%
   mutate(
@@ -66,26 +66,15 @@ min_date # "2018-11-21"
 combined %>% filter(!is.na(fb_leaving_home_custom_lag14))
 
 cols2 <- c(
-  # "within_neighborhood_movement",
   "within_city_movement",
   "within_state_movement",
   "out_of_state_movement",
   "fb_leaving_home_custom",
   "full_service_restaurants",
-  # "groceries_and_pharmacies",
-  # "transit",
   "religious_orgs",
-  # "oxford_stringency_index",
-  # "mask_wearing_final",
   "child_day_care",
   "elementary_and_secondary_schools",
   "colleges",
-  # "Perc_Full_Vax",
-  # "Ancestral",
-  # "Alpha",
-  # "Delta",
-  # "omicron_ba1",
-  # "omicron_ba2",
   "DailyAverageRelativeHumidity",
   "DailyPrecipitation",
   "DailyAverageWetBulbTemperature"
@@ -445,7 +434,6 @@ label_df <- data.frame(
   label = c(
     unique(coef_ARGO$regressor)[1:15],
     "SARS-CoV-2 Rt",
-    # "within-neighborhood movement",
     # "between-neighborhood movement",
     "between-neighborhood movement, Lag 1",
     "between-neighborhood movement, Lag 7",
@@ -466,20 +454,10 @@ label_df <- data.frame(
     "restaurants, Lag 1",
     "restaurants, Lag 7",
     "restaurants, Lag 14",
-    # "groceries and pharmacies",
-    # "transit",
     # "religious organizations",
     "religious organizations, Lag 1",
     "religious organizations, Lag 7",
     "religious organizations, Lag 14",
-    # "Oxford Stringency Index",
-    # "Oxford Stringency Index, Lag 1",
-    # "Oxford Stringency Index, Lag 7",
-    # "Oxford Stringency Index, Lag 14",
-    # "% not wearing masks",
-    # "% not wearing masks, Lag 1",
-    # "% not wearing masks, Lag 7",
-    # "% not wearing masks, Lag 14",
     # "child daycare",
     "child daycare, Lag 1",
     "child daycare, Lag 7",
@@ -519,7 +497,6 @@ plot_df <- left_join(coef_ARGO, label_df, by = c("regressor" = "var"))
 orders <- c(
   unique(plot_df$label)[1:15],
   "SARS-CoV-2 Rt",
-  # "within-neighborhood movement",
   # "between-neighborhood movement",
   "between-neighborhood movement, Lag 1",
   "between-neighborhood movement, Lag 7",
@@ -546,14 +523,6 @@ orders <- c(
   "religious organizations, Lag 1",
   "religious organizations, Lag 7",
   "religious organizations, Lag 14",
-  # "Oxford Stringency Index",
-  # "Oxford Stringency Index, Lag 1",
-  # "Oxford Stringency Index, Lag 7",
-  # "Oxford Stringency Index, Lag 14",
-  # "% not wearing masks",
-  # "% not wearing masks, Lag 1",
-  # "% not wearing masks, Lag 7",
-  # "% not wearing masks, Lag 14",
   # "child daycare",
   "child daycare, Lag 1",
   "child daycare, Lag 7",
@@ -646,11 +615,10 @@ q
 plot_grid(q, p, nrow = 2, align = "v")
 
 ########################################################################################
-## Figure S18: Overlay model predictions on observed SC2 Rt and incidence
+## Figure S21: Overlay model predictions on observed AdV Rt and incidence
 ########################################################################################
 
-res_ARGO2 <- res_ARGO %>%
-  mutate(data_7d_ahead = as.numeric(as.character(data_7d_ahead)))
+res_ARGO2 <- res_ARGO %>% mutate(data_7d_ahead = as.numeric(as.character(data_7d_ahead)))
 
 head(rt_df)
 unique(rt_df$organism)
@@ -784,7 +752,7 @@ accuracy_table <-
 
 baseline_rmse <- accuracy_table$rmse[1]
 baseline_mae <- accuracy_table$mae[1]
-accuracy_table$rmse[3] # 0.04018487
+whole <- accuracy_table$rmse[3]
 
 accuracy_table %>%
   mutate(
@@ -795,10 +763,10 @@ accuracy_table %>%
 # model                                     rmse    mae rmse_perc_diff_from_AR mae_perc_diff_from_AR
 # <chr>                                    <dbl>  <dbl>                  <dbl>                 <dbl>
 # 1 AR                                      0.0290 0.0205                   0                     0
-# 2 AR + Climate                            0.0313 0.0221                   8.00                  7.94
-# 3 AR + Mobility                           0.0402 0.0301                  38.7                  46.7
-# 4 AR + Mobility + Climate                 0.0414 0.0310                  43.0                  51.4
-# 5 AR + Mobility + Climate + SARS-CoV-2 Rt 0.0424 0.0315                  46.4                  53.8
+# 2 AR + Climate                            0.0313 0.0222                   8.10                  8.05
+# 3 AR + Mobility                           0.0402 0.0301                  38.6                  46.6
+# 4 AR + Mobility + Climate                 0.0415 0.0311                  43.0                  51.4
+# 5 AR + Mobility + Climate + SARS-CoV-2 Rt 0.0424 0.0315                  46.2                  53.7
 
 all_residuals <- model_predict_df %>%
   mutate(
@@ -814,7 +782,7 @@ all_residuals_lim <- all_residuals %>%
 
 unique(all_residuals_lim$model)
 range(all_residuals_lim$error)
-range(all_residuals_lim$percent_error) #-0.1614007  0.4278382
+range(all_residuals_lim$percent_error) # -0.1620462  0.4278382
 
 p <- ggplot() +
   geom_rect(aes(xmin = as.Date("2019-01-22"), xmax = as.Date("2019-03-13"), ymin = -Inf, ymax = Inf),
@@ -866,7 +834,7 @@ accuracy_table <-
 
 baseline_rmse <- accuracy_table$rmse[1]
 baseline_mae <- accuracy_table$mae[1]
-accuracy_table$rmse[3] # 0.021626
+sah <- accuracy_table$rmse[3]
 
 accuracy_table %>%
   mutate(
@@ -876,10 +844,10 @@ accuracy_table %>%
   arrange(model)
 # model                                     rmse    mae rmse_perc_diff_from_AR mae_perc_diff_from_AR
 # 1 AR                                      0.0193 0.0141                  0                      0
-# 2 AR + Climate                            0.0192 0.0138                 -0.535                 -2.20
-# 3 AR + Mobility                           0.0216 0.0168                 12.2                   19.5
-# 4 AR + Mobility + Climate                 0.0236 0.0181                 22.7                   28.5
+# 2 AR + Climate                            0.0192 0.0138                 -0.541                 -2.25
+# 3 AR + Mobility                           0.0216 0.0168                 12.2                   19.4
+# 4 AR + Mobility + Climate                 0.0236 0.0181                 22.7                   28.4
 # 5 AR + Mobility + Climate + SARS-CoV-2 Rt 0.0252 0.0194                 30.7                   37.5
 
 # change in rmse between whole study period vs SAH
-((0.04018487 - 0.021626) / 0.04018487) * 100 # 46.18%
+((whole - sah) / whole) * 100 # 46.18%

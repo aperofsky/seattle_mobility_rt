@@ -1,5 +1,5 @@
 ########################################################################################
-## Predictive model of SARS-CoV-2 Rt
+## Forecasting models of SARS-CoV-2 Rt
 ########################################################################################
 
 library(readr)
@@ -28,7 +28,7 @@ rt_df <- read_csv("2_Epidemia_Models/rt_all_pathogens_15day_mv_avg.csv")
 
 climate_df <- read_csv("6_LASSO_Predictive_Models/1_Climate_data/seattle_daily_weather_variables_2023_01_30.csv")
 
-## interpolate missing Precipitation data
+## interpolate missing values
 climate_df <- climate_df %>%
   complete(date = seq.Date(as.Date("2018-01-01"), as.Date("2022-09-30"), by = "day")) %>%
   mutate(
@@ -717,8 +717,7 @@ plot_grid(q, p, nrow = 2, align = "v")
 ## Figure S19 variation: Overlay model predictions on observed SC2 Rt and incidence
 ########################################################################################
 
-res_ARGO2 <- res_ARGO %>%
-  mutate(data_7d_ahead = as.numeric(as.character(data_7d_ahead)))
+res_ARGO2 <- res_ARGO %>% mutate(data_7d_ahead = as.numeric(as.character(data_7d_ahead)))
 
 head(rt_df)
 unique(rt_df$organism)
@@ -854,12 +853,12 @@ accuracy_table %>%
   arrange(model)
 # model                                                 rmse    mae rmse_perc_diff_from_AR mae_perc_diff_from_AR
 # <chr>                                                <dbl>  <dbl>                  <dbl>                 <dbl>
-# 1 AR                                                  0.0334 0.0191                   0                    0
-# 2 AR + Climate                                        0.0323 0.0182                  -3.31                -4.85
-# 3 AR + Mobility                                       0.0290 0.0176                 -13.2                 -7.61
-# 4 AR + Mobility + Climate                             0.0291 0.0178                 -13.0                 -6.49
-# 5 AR + Mobility + Climate + Rhino Rt                  0.0293 0.0179                 -12.5                 -6.12
-# 6 AR + Mobility + Climate + Rhino Rt + Vax + Variants 0.0330 0.0191                  -1.27                 0.149
+# 1 AR                                                  0.0333 0.0191                  0                     0
+# 2 AR + Climate                                        0.0324 0.0181                 -2.85                 -4.80
+# 3 AR + Mobility                                       0.0290 0.0176                -12.9                  -7.43
+# 4 AR + Mobility + Climate                             0.0291 0.0178                -12.6                  -6.33
+# 5 AR + Mobility + Climate + Rhino Rt                  0.0292 0.0179                -12.3                  -6.12
+# 6 AR + Mobility + Climate + Rhino Rt + Vax + Variants 0.0330 0.0191                 -0.863                 0.361
 
 all_residuals <- model_predict_df %>%
   mutate(

@@ -1,5 +1,5 @@
 ########################################################################################
-## Predictive models of SARS-CoV-2 Rt, 2020-2022
+## Forecasting models of SARS-CoV-2 Rt, 2020-2022
 ########################################################################################
 
 library(readr)
@@ -29,7 +29,7 @@ rt_df <- read_csv("2_Epidemia_Models/rt_all_pathogens_15day_mv_avg.csv")
 
 climate_df <- read_csv("6_LASSO_Predictive_Models/1_Climate_data/seattle_daily_weather_variables_2023_01_30.csv")
 
-## interpolate missing Precipitation data
+## interpolate missing values
 climate_df <- climate_df %>%
   complete(date = seq.Date(as.Date("2018-01-01"), as.Date("2022-09-30"), by = "day")) %>%
   mutate(
@@ -795,7 +795,7 @@ accuracy_table <-
 
 baseline_rmse <- accuracy_table$rmse[1]
 baseline_mae <- accuracy_table$mae[1]
-accuracy_table$rmse[3] # 0.02949765
+whole <- accuracy_table$rmse[3]
 
 accuracy_table %>%
   mutate(
@@ -806,11 +806,11 @@ accuracy_table %>%
 
 # model                                rmse    mae rmse_perc_diff_from_AR mae_perc_diff_from_AR
 # <chr>                               <dbl>  <dbl>                  <dbl>                 <dbl>
-# 1 AR                                 0.0291 0.0175                  0                      0
-# 2 AR + Climate                       0.0292 0.0179                  0.351                  2.47
-# 3 AR + Mobility                      0.0295 0.0194                  1.36                  11.2
-# 4 AR + Mobility + Climate            0.0298 0.0197                  2.40                  12.7
-# 5 AR + Mobility + Climate + Rhino Rt 0.0302 0.0199                  3.94                  14.1
+# 1 AR                                 0.0292 0.0175                  0                      0
+# 2 AR + Climate                       0.0291 0.0178                 -0.415                  1.88
+# 3 AR + Mobility                      0.0295 0.0194                  1.04                  11.1
+# 4 AR + Mobility + Climate            0.0298 0.0197                  2.09                  12.6
+# 5 AR + Mobility + Climate + Rhino Rt 0.0302 0.0199                  3.61                  14.0
 
 # percentage error is calculated by dividing the difference between the predicted and observed value by the observed value of Rt
 all_residuals <- model_predict_df %>%
@@ -827,8 +827,8 @@ all_residuals_lim <- all_residuals %>%
   droplevels()
 unique(all_residuals_lim$model)
 range(all_residuals_lim$date)
-range(all_residuals_lim$error) #-0.2435152  0.1192930
-range(all_residuals_lim$percent_error) #-0.1077317  0.1451335
+range(all_residuals_lim$error)
+range(all_residuals_lim$percent_error) #-0.1003664  0.1451335
 
 p <- ggplot() +
   geom_rect(aes(
@@ -881,7 +881,7 @@ accuracy_table <-
 
 baseline_rmse <- accuracy_table$rmse[1]
 baseline_mae <- accuracy_table$mae[1]
-accuracy_table$rmse[3] # 0.02184425
+sah <- accuracy_table$rmse[3]
 
 accuracy_table <- accuracy_table %>%
   mutate(
@@ -889,14 +889,15 @@ accuracy_table <- accuracy_table %>%
     mae_perc_diff_from_AR = 100 * (mae - baseline_mae) / baseline_mae
   ) %>%
   arrange(model)
+accuracy_table
 # model                                rmse    mae rmse_perc_diff_from_AR mae_perc_diff_from_AR
 # <chr>                               <dbl>  <dbl>                  <dbl>                 <dbl>
 # 1 AR                                 0.0256 0.0162                   0                     0
-# 2 AR + Climate                       0.0264 0.0167                   2.95                  3.64
-# 3 AR + Mobility                      0.0218 0.0170                 -14.8                   5.35
-# 4 AR + Mobility + Climate            0.0218 0.0170                 -14.9                   5.47
-# 5 AR + Mobility + Climate + Rhino Rt 0.0268 0.0192                   4.47                 19.1
+# 2 AR + Climate                       0.0262 0.0167                   2.18                  3.18
+# 3 AR + Mobility                      0.0218 0.0170                 -14.8                   5.38
+# 4 AR + Mobility + Climate            0.0218 0.0170                 -14.8                   5.47
+# 5 AR + Mobility + Climate + Rhino Rt 0.0268 0.0192                   4.51                 19.1
 
 # change in rmse between whole study period vs SAH
 # # ((original value - new value) / original value) * 100
-((0.02949765 - 0.02184425) / 0.02949765) * 100 # 25.95% more accurate
+((whole - sah) / whole) * 100 # 25.95% more accurate
