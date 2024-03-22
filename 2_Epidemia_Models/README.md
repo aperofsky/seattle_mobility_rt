@@ -11,7 +11,7 @@
 
     *   To run models locally, install [RStan](https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started) before installing the Epidemia package.
 
-    *   Runtime: You can run models on a local machine but they will take several hours to several days, depending on the pathogen and time period. Models take a similar amount of time to run on the cluster but can be run simultaneously. Reducing the number of MCMC iterations will reduce runtime but Markov chains may not converge.
+    *   Runtime: You can run models on a local machine but they will take several hours to several days, depending on the pathogen and time period. Models take a similar amount of time to run on the cluster but can be run simultaneously. Reducing the number of MCMC iterations will shorten runtime but Markov chains may not converge.
             
 * `1_epidemia_Rt_figures.R`
     *   Compile Rt estimates from all pathogens and time periods into one data frame.
