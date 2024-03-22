@@ -775,7 +775,7 @@ r <- ggplot() +
 r
 
 ########################################################################################
-## Predictive accuracy: Table S3
+## Predictive accuracy: Tables S3 and S4
 ########################################################################################
 model_predict_df <- bind_rows(
   res_ARGO %>% mutate(model = "AR + Mobility + Climate + Rhino Rt"),

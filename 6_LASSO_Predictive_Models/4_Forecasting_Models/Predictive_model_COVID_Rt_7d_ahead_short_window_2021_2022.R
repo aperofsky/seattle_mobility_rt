@@ -501,8 +501,6 @@ label_df <- data.frame(
   label = c(
     unique(coef_ARGO$regressor)[1:15],
     "hRV Rt",
-    # "within-neighborhood movement",
-    # "between-neighborhood movement",
     # "influx visitors other WA counties",
     "influx visitors other WA counties, Lag 1",
     "influx visitors other WA counties, Lag 7",
@@ -519,8 +517,6 @@ label_df <- data.frame(
     "restaurants, Lag 1",
     "restaurants, Lag 7",
     "restaurants, Lag 14",
-    # "groceries and pharmacies",
-    # "transit",
     # "religious organizations",
     "religious organizations, Lag 1",
     "religious organizations, Lag 7",
@@ -533,14 +529,10 @@ label_df <- data.frame(
     "% not wearing masks, Lag 1",
     "% not wearing masks, Lag 7",
     "% not wearing masks, Lag 14",
-    # "child daycare",
-    # "elementary and high schools",
-    # "colleges",
     # "% Fully Vaccinated",
     "% Fully Vaccinated, Lag 1",
     "% Fully Vaccinated, Lag 7",
     "% Fully Vaccinated, Lag 14",
-    # "Prop. Ancestral",
     # "Prop. Alpha",
     "Prop. Alpha, Lag 1",
     "Prop. Alpha, Lag 7",
@@ -581,8 +573,6 @@ plot_df <- left_join(coef_ARGO, label_df, by = c("regressor" = "var"))
 orders <- c(
   unique(plot_df$label)[1:15],
   "hRV Rt",
-  # "within-neighborhood movement",
-  # "between-neighborhood movement",
   # "influx visitors other WA counties",
   "influx visitors other WA counties, Lag 1",
   "influx visitors other WA counties, Lag 7",
@@ -599,8 +589,6 @@ orders <- c(
   "restaurants, Lag 1",
   "restaurants, Lag 7",
   "restaurants, Lag 14",
-  # "groceries and pharmacies",
-  # "transit",
   # "religious organizations",
   "religious organizations, Lag 1",
   "religious organizations, Lag 7",
@@ -613,14 +601,10 @@ orders <- c(
   "% not wearing masks, Lag 1",
   "% not wearing masks, Lag 7",
   "% not wearing masks, Lag 14",
-  # "child daycare",
-  # "elementary and high schools",
-  # "colleges",
   # "% Fully Vaccinated",
   "% Fully Vaccinated, Lag 1",
   "% Fully Vaccinated, Lag 7",
   "% Fully Vaccinated, Lag 14",
-  # "Prop. Ancestral",
   # "Prop. Alpha",
   "Prop. Alpha, Lag 1",
   "Prop. Alpha, Lag 7",
@@ -714,7 +698,7 @@ q
 plot_grid(q, p, nrow = 2, align = "v")
 
 ########################################################################################
-## Figure S19 variation: Overlay model predictions on observed SC2 Rt and incidence
+## Overlay model predictions on observed SC2 Rt and incidence
 ########################################################################################
 
 res_ARGO2 <- res_ARGO %>% mutate(data_7d_ahead = as.numeric(as.character(data_7d_ahead)))

@@ -612,7 +612,7 @@ q
 plot_grid(q, p, nrow = 2, align = "v")
 
 ########################################################################################
-## Figure S20: Overlay model predictions on observed SC2 Rt and incidence
+## Figure S20: Overlay model predictions on observed hRV Rt and incidence
 ########################################################################################
 
 res_ARGO2 <- res_ARGO %>% mutate(data_7d_ahead = as.numeric(as.character(data_7d_ahead)))
@@ -725,7 +725,7 @@ r <- ggplot() +
 r
 
 ########################################################################################
-## Predictive accuracy: Table S3
+## Predictive accuracy: Tables S3 and S4
 ########################################################################################
 model_predict_df <- bind_rows(
   res_ARGO %>% mutate(model = "AR + Mobility + Climate + SARS-CoV-2 Rt"),
