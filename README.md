@@ -7,7 +7,18 @@ Corresponding author: Amanda Perofsky (acperof@uw.edu)
 
 Many studies have used mobile device location data to model SARS-CoV-2 dynamics, yet relationships between mobility behavior and endemic respiratory pathogens are less understood. We studied the effects of population mobility on the transmission of 16 endemic viruses and SARS-CoV-2 in Seattle over a 4-year period, 2018-2022. Before 2020, visits to schools and daycares, within-city mixing, and visitor inflow preceded or coincided with seasonal outbreaks of endemic viruses. Pathogen circulation dropped substantially after the initiation of COVID-19 stay-at-home orders in March 2020. During this period, mobility was a positive, leading indicator of transmission of all endemic viruses and lagging and negatively correlated with SARS-CoV-2 activity. Mobility was briefly predictive of SARS-CoV-2 transmission when restrictions relaxed but associations weakened in subsequent waves. The rebound of endemic viruses was heterogeneously timed but exhibited stronger, longer-lasting relationships with mobility than SARS-CoV-2. Overall, mobility is most predictive of respiratory virus transmission during periods of dramatic behavioral change and at the beginning of epidemic waves.
 
-Data processing and statistical analyses are performed with the statistical computing software [R](https://www.r-project.org/) version 4.3, unless otherwise noted. We used the National Institutes of Health's [Biowulf HPC cluster](https://hpc.nih.gov/) to fit transmission models and perform block bootstrapping of time series cross-correlations. Biowulf used R version 4.2 at the time the code was originally written.
+## Software and Hardware
+Data processing and statistical analyses are performed with the statistical computing software [R](https://www.r-project.org/) version 4.3, unless otherwise noted.
+
+R code was tested on a 2021 MacBook Pro Apple M1 Max with 10 cores and 32GB RAM.
+```
+> sessionInfo()
+R version 4.3.1 (2023-06-16)
+Platform: aarch64-apple-darwin20 (64-bit)
+Running under: macOS Sonoma 14.4
+```
+
+ We used the National Institutes of Health's [Biowulf HPC cluster](https://hpc.nih.gov/) to fit transmission models and perform block bootstrapping of time series cross-correlations. The NIH Biowulf cluster is a 95,000+ core/30+ PB Linux cluster. Biowulf is designed for large numbers of simultaneous jobs common in the biosciences. [Information on Biowulf Hardware](https://hpc.nih.gov/systems/hardware.html). Biowulf used R version 4.2 at the time the code was originally written.
 
 ## Dependencies
 
@@ -38,7 +49,7 @@ renv::restore() #install the specific package versions recorded in the lockfile 
 
 ## Data Availability
 
-Processed pathogen incidence data from the Seattle Flu Study are provided in `2_Epidemia_Models/Epidemia_Models_Biowulf/`. To reconstruct incidences, we adjusted Seattle Flu Study RT-PCR pathogen presence/absence data by total test volume, age, clinical setting, and local syndromic respiratory illness rates.
+Processed pathogen incidence data from the Seattle Flu Study are provided in the `2_Epidemia_Models/Epidemia_Models_Biowulf/` folder. To reconstruct incidences, we adjusted Seattle Flu Study RT-PCR pathogen presence/absence data by total test volume, age, clinical setting, and local syndromic respiratory illness rates.
 
 Access to de-identified individual-level study participant data requires a signed data access agreement with the Seattle Flu Alliance and can be made available to researchers whose proposed use of the data is approved by study investigators. Requests for data access should be submitted to data@seattleflu.org. Aggregated influenza syndromic and virologic surveillance data for Washington state are publicly accessible through the [US CDC FluView Interactive](https://www.cdc.gov/flu/weekly/fluviewinteractive.htm) dashboard. Aggregated respiratory syndromic surveillance data for King County, WA are not publicly available and were provided by the Washington Department of Health's Rapid Health Information Network (RHINO) program. Access for research purposes requires a signed data sharing agreement with WA DOH and exemption approval from the Washington State Institutional Review Board. Requests for data access should be submitted to RHINO@doh.wa.gov.  Data on confirmed COVID-19 cases in King County, WA are publicly accessible through the [WA DOH COVID-19 dashboard](https://doh.wa.gov/emergencies/covid-19/data-dashboard).
 
