@@ -1,17 +1,16 @@
-## Note: code is for the raw SafeGraph visits, but Dewey doesn't permit sharing of the raw mobility data
-## Inputs and outputs are not publicly available, but you can run the code if you have access to the SafeGraph data
+## Note: code is for the raw SafeGraph visits, but Dewey doesn't permit sharing of the raw mobility data.
+## Inputs and outputs are not publicly available, but you can run the code if you have access to the raw SafeGraph data.
 ####################################################
 ## 1. Import and organize/clean SafeGraph data:
 ### - Home panel
 ### - Visitor panel
 ### - Normalization stats
 ### - Weekly patterns
-## 2. Join SG data with census data (e.g., pop size by cbg, county, etc.)
-## 3. Create some mobility indices:
+## 2. Create mobility indices:
 ### - Daily visits to various categories of POIs
 ### - Weekly visitors by visitor home CBG
 ####################################################
-
+start.time <- Sys.time()
 #### Note: SafeGraph data are for WA state only
 
 library(SafeGraphR)
@@ -84,7 +83,7 @@ all_panel_US %>%
   slice_max(number_devices_primary_daytime) %>%
   arrange(-number_devices_primary_daytime)
 
-ggplot(all_panel_US %>% as.tibble() %>% filter(census_block_group == "530330224006")) +
+ggplot(all_panel_US %>% as_tibble() %>% filter(census_block_group == "530330224006")) +
   geom_line(aes(x = start_date, y = number_devices_primary_daytime))
 
 range(all_panel_US$start_date) # "2018-01-01" "2022-04-18"
@@ -97,7 +96,8 @@ all_panel_US_dt %>%
   filter(n != 1) %>%
   as_tibble()
 
-dir <- "~/OneDrive - National Institutes of Health/NIH_Laptop_Updates_Post_Damage/Documents/Seattle_Flu_Study/Seattle_SG_Mobility/"
+# directory for storing raw mobility data outputs
+dir <- "~/Seattle_Flu_Study/Seattle_SG_Mobility/"
 write_rds(all_panel_US, file = paste0(dir, "SG_data/Safegraph_daily_panel_devices_by_CBG_2018_to_2022.rds")) # daily panel size by CBG
 # all_panel_US = read_rds(paste0(dir,"SG_data/Safegraph_daily_panel_devices_by_CBG_2018_to_2022.rds"))
 
@@ -124,8 +124,8 @@ all_panel_US_dt %>%
   as_tibble()
 
 all_panel_US_by_county <- as_tibble(all_panel_US_by_county)
-write_rds(all_panel_US_by_county, file = "SG_data/Safegraph_daily_panel_devices_by_county_2018_to_2022.rds") # daily panel size by county
-all_panel_US_by_county <- read_rds("SG_data/Safegraph_daily_panel_devices_by_county_2018_to_2022.rds")
+write_rds(all_panel_US_by_county, file = paste0(dir,"SG_data/Safegraph_daily_panel_devices_by_county_2018_to_2022.rds")) # daily panel size by county
+# all_panel_US_by_county <- read_rds(paste0(dir,"SG_data/Safegraph_daily_panel_devices_by_county_2018_to_2022.rds"))
 
 ggplot(all_panel_US_by_county %>% filter(state_fips == "53")) +
   geom_line(aes(x = start_date, y = county_devices_residing)) +
@@ -205,8 +205,8 @@ norm_stats_US_dt %>%
 
 norm_stats_US <- as_tibble(norm_stats_US_dt)
 
-write_rds(norm_stats_US, file = "Seattle_Mobility_Data/mobility_data/Safegraph_daily_normalization_stats_2018_to_2022.rds")
-# norm_stats_US <- read_rds("Seattle_Mobility_Data/mobility_data/Safegraph_daily_normalization_stats_2018_to_2022.rds")
+write_rds(norm_stats_US, file = paste0(dir,"SG_data/Safegraph_daily_normalization_stats_2018_to_2022.rds"))
+# norm_stats_US <- read_rds(paste0(dir,"SG_data/Safegraph_daily_normalization_stats_2018_to_2022.rds"))
 rm(norm)
 
 ####################################################
@@ -335,8 +335,8 @@ df_filt %>%
   filter(n != 1) %>%
   distinct(start_date)
 
-write_rds(x = df_filt, "Seattle_Mobility_Data/mobility_data/SG_patterns_raw_2018_01_01_to_2022_09_26.rds")
-# df_filt <- read_rds("Seattle_Mobility_Data/mobility_data/SG_patterns_raw_2018_01_01_to_2022_09_26.rds") %>% as_tibble()
+write_rds(x = df_filt, paste0(dir,"SG_data/SG_patterns_raw_2018_01_01_to_2022_09_26.rds"))
+# df_filt <- read_rds(paste0(dir,"SG_data/SG_patterns_raw_2018_01_01_to_2022_09_26.rds")) %>% as_tibble()
 
 ####################################################
 # Filter out POIs that only occasionally appear in the dataset
@@ -436,7 +436,7 @@ daily_visits_cbg_all_years %>%
   tally() %>%
   filter(n != 1)
 
-write_rds(daily_visits_cbg_all_years, file = "Seattle_Mobility_Data/mobility_data/SG_patterns_cbg_visits_by_day_2018_to_2022.rds")
+write_rds(daily_visits_cbg_all_years, file = paste0(dir,"SG_data/SG_patterns_cbg_visits_by_day_2018_to_2022.rds"))
 
 ####################################################
 # Daily visits to POIs by naics category
@@ -464,7 +464,7 @@ daily_visits_naics_all_years %>%
   filter(n != 1)
 
 # import names of NAICS codes
-naics <- openxlsx::read.xlsx("Seattle_Mobility_Data/mobility_data/2-6 digit_2017_Codes.xlsx")[, 1:2]
+naics <- openxlsx::read.xlsx("1_Seattle_Mobility_Data/mobility_data/2-6 digit_2017_Codes.xlsx")[, 1:2]
 head(naics)
 names(naics) <- c("naics_code", "industry")
 naics$naics_code <- as.integer(naics$naics_code)
@@ -531,7 +531,7 @@ daily_visits_naics_all_years %>%
   filter(n != 1)
 
 daily_visits_naics_all_years <- daily_visits_naics_all_years %>% as_tibble()
-write_rds(daily_visits_naics_all_years, file = "Seattle_Mobility_Data/mobility_data/SG_patterns_naics_visits_by_day_2018_to_2022.rds")
+write_rds(daily_visits_naics_all_years, file = paste0(dir,"SG_data/SG_patterns_naics_visits_by_day_2018_to_2022.rds"))
 
 ####################################################
 # Weekly visitors by visitor home cbg
@@ -541,7 +541,7 @@ weekly_visitors_cbg_all_years <- expand_cat_json(df_all_years, "visitor_home_cbg
 head(weekly_visitors_cbg_all_years)
 names(weekly_visitors_cbg_all_years)[4] <- "weekly_visits"
 
-write_rds(weekly_visitors_cbg_all_years, file = "Seattle_Mobility_Data/mobility_data/SG_patterns_weekly_visitor_home_cbg_all_years_2018_to_2022.rds")
+write_rds(weekly_visitors_cbg_all_years, file = paste0(dir,"SG_data/SG_patterns_weekly_visitor_home_cbg_all_years_2018_to_2022.rds"))
 
 ####################################################
 # Datasets for Scaling Visits
@@ -647,3 +647,6 @@ home_and_visitor_panel_dt %>%
 
 home_and_visitor_panel <- home_and_visitor_panel %>% as_tibble()
 save(home_and_visitor_panel, file = paste0(dir, "SG_data/home_and_visitor_panel_all_years.rds"))
+end.time <- Sys.time()
+time.taken <- round(end.time - start.time,2)
+time.taken
