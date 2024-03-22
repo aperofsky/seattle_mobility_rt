@@ -21,7 +21,7 @@ library(censusapi)
 library(tigris)
 library(tidycensus)
 Sys.setenv(PROJ_LIB = "")
-library(sf) # use older version of sf; see: https://github.com/r-spatial/sf/issues/2298#issuecomment-1867563910
+library(sf) #  use older version of sf; see: https://github.com/r-spatial/sf/issues/2298#issuecomment-1867563910
 library(ggplot2)
 library(cowplot)
 library(viridis)
