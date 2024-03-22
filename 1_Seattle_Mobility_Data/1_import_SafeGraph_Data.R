@@ -10,7 +10,6 @@
 ### - Daily visits to various categories of POIs
 ### - Weekly visitors by visitor home CBG
 ####################################################
-start.time <- Sys.time()
 #### Note: SafeGraph data are for WA state only
 
 library(SafeGraphR)
@@ -646,7 +645,4 @@ home_and_visitor_panel_dt %>%
   as_tibble()
 
 home_and_visitor_panel <- home_and_visitor_panel %>% as_tibble()
-save(home_and_visitor_panel, file = paste0(dir, "SG_data/home_and_visitor_panel_all_years.rds"))
-end.time <- Sys.time()
-time.taken <- round(end.time - start.time,2)
-time.taken
+write_rds(home_and_visitor_panel, file = paste0(dir, "SG_data/home_and_visitor_panel_all_years.rds"))

@@ -13,7 +13,7 @@ library(ggplot2)
 library(boot)
 library(boot.pval)
 
-all_rt <- read_csv("Epidemia_Models/rt_all_pathogens_raw.csv")
+all_rt <- read_csv("2_Epidemia_Models/rt_all_pathogens_raw.csv")
 
 all_rt %>%
   pull(organism) %>%

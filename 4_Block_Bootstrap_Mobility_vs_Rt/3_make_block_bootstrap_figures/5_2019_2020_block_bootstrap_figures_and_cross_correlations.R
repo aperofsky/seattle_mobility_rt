@@ -882,6 +882,3 @@ rt_top <- plot_grid(NULL, spring_2020_rt, NULL, rel_widths = c(0.1, 9, 0.9), nro
 rt_mob_spring_2020 <- plot_grid(rt_top, spring_2020_plot, nrow = 2, rel_heights = c(1.5, 12), labels = "AUTO")
 rt_mob_spring_2020
 save_plot(rt_mob_spring_2020, file = "figures/fig_s11_block_bootstrap_spring_2020_spearman_neg_lags.png", base_width = 24, base_height = 16)
-
-
-# keep <- c("Rhinovirus", "Enterovirus", "Adenovirus", "SARS-CoV-2", "RSV B", "hMPV", "hCoV 229E + OC43", "hCoV HKU1 + NL63", "hPIV 3 + 4")

@@ -18,7 +18,7 @@ Platform: aarch64-apple-darwin20 (64-bit)
 Running under: macOS Sonoma 14.4
 ```
 
- We used the National Institutes of Health's [Biowulf HPC cluster](https://hpc.nih.gov/) to fit transmission models and perform block bootstrapping of time series cross-correlations. The NIH Biowulf cluster is a 95,000+ core/30+ PB Linux cluster. Biowulf is designed for large numbers of simultaneous jobs common in the biosciences. [Information on Biowulf Hardware](https://hpc.nih.gov/systems/hardware.html). Biowulf used R version 4.2 at the time the code was originally written.
+ We used the National Institutes of Health's [Biowulf HPC cluster](https://hpc.nih.gov/) to fit transmission models and perform block bootstrapping of time series cross-correlations. The NIH Biowulf cluster is a 95,000+ core/30+ PB Linux cluster. Biowulf is designed for large numbers of simultaneous jobs common in the biosciences. [Information about Biowulf's hardware](https://hpc.nih.gov/systems/hardware.html). Biowulf used R version 4.2 at the time the code was originally written.
 
 ## Dependencies
 
