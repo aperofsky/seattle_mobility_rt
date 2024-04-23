@@ -36,7 +36,7 @@ readRenviron("~/.Renviron")
 # Check to see that the expected key is output in your R console
 Sys.getenv("CENSUS_KEY")
 
-dir <- "/Users/perofskyamc/Library/CloudStorage/OneDrive-NationalInstitutesofHealth/NIH_Laptop_Updates_Post_Damage/Documents/Seattle_Flu_Study/Seattle_SG_Mobility/"
+dir <- "~/Documents/Seattle_Flu_Study/Seattle_SG_Mobility/"
 # ####################################################
 # ## Seattle Mobility Network Maps: Figure 3 in main text
 # ####################################################
@@ -46,12 +46,14 @@ cbg_gps <- read.csv("1_Seattle_Mobility_Data/mobility_data/Seattle_Census_Block_
 head(cbg_gps)
 unique(nchar(cbg_gps$GEOID10))
 
-# ## requires API key
+# Map of King County, WA
+# requires API key
 king <- get_acs(
   state = "WA", county = "King", geography = "block group",
   variables = "B01003_001", geometry = TRUE, year = 2019
 )
 
+# filter to CBGs in Seattle proper
 seattle_map <- king %>% filter(GEOID %in% cbg_gps$GEOID10)
 
 weekly_visitors_cbg_within_seattle <- read_rds(paste0(dir, "SG_data/weekly_visitors_cbg_within_seattle_2018_2022.rds"))
@@ -66,13 +68,7 @@ weekly_visitors_cbg_within_seattle %>%
   tally() %>%
   filter(n != 1)
 
-## switch from scaled_visits_adj to scaled_visits_county because those counts are more stable
-## change in panel in May 2022 causes big drop in total visits
 range(weekly_visitors_cbg_within_seattle$start_date)
-
-weekly_visitors_cbg_within_seattle %>%
-  filter(start_date == as.Date("2019-02-11") & home_location == "non_resident") %>%
-  summarize(net_movement = sum(scaled_visits_county)) #  984572
 
 weekly_visitors_cbg_within_seattle %>%
   filter(start_date %in% c(
@@ -92,6 +88,9 @@ my_breaks <- reshape::round_any(exp(seq(log(100), log(24000), length = 5)), 5)
 ####################################################
 ## february 2019 snowstorm
 ####################################################
+weekly_visitors_cbg_within_seattle %>%
+  filter(start_date == as.Date("2019-02-11") & home_location == "non_resident") %>%
+  summarize(net_movement = sum(scaled_visits_county)) #  984572
 
 feb_2019_map <-
   ggplot(seattle_map) +
@@ -127,8 +126,8 @@ feb_2019_map <-
     axis.ticks = element_blank(),
     axis.text = element_blank(),
     legend.position = "none",
-    plot.title = element_text(hjust = 0.5,size=6),
-    axis.title.x = element_text(size=5,hjust = 0.5)
+    plot.title = element_text(hjust = 0.5, size = 6),
+    axis.title.x = element_text(size = 5, hjust = 0.5)
   ) +
   scale_alpha(guide = "none") +
   scale_size(guide = "none") +
@@ -150,29 +149,29 @@ degree_dist <- degree_distribution(mygraph) %>% as.data.frame()
 cbg_degree <- degree(mygraph, loops = F, normalized = F) %>% as.data.frame()
 colnames(cbg_degree) <- "degree"
 
-mean(cbg_degree$degree) 
+mean(cbg_degree$degree)
 median(cbg_degree$degree)
 range(cbg_degree$degree)
 range(log10(cbg_degree$degree))
 
 # log scale on x-axis
 feb_deg_log <- ggpubr::gghistogram(cbg_degree,
-                                   size = 0.1,
-                                   font.label = list(size = 7),
-                                   x = "degree",
-                                   add = "median", rug = F,
-                                   color = "black", fill = "#00AFBB"
+  size = 0.2,
+  font.label = list(size = 7),
+  x = "degree",
+  add = "median", rug = F,
+  color = "black", fill = "#00AFBB"
 ) +
   xlab("Degree k") +
   ylab("Frequency") +
-  theme_bw(base_size = 7)+
-  theme(axis.title = element_text(size=5))+
+  theme_bw(base_size = 7) +
+  theme(axis.title = element_text(size = 5)) +
   scale_x_continuous(expand = c(0, 0), trans = "log10") +
   scale_y_continuous(expand = c(0, 0), lim = c(0, 75)) +
   expand_limits(x = c(1, 190))
 feb_deg_log
 
-feb_2019_map_w_deg_log <- plot_grid(feb_2019_map, feb_deg_log, nrow = 2, rel_heights = c(6, 2), labels = c("A", "B"),label_size = 7)
+feb_2019_map_w_deg_log <- plot_grid(feb_2019_map, feb_deg_log, nrow = 2, rel_heights = c(6, 2), labels = c("A", "B"), label_size = 7)
 feb_2019_map_w_deg_log
 
 ####################################################
@@ -216,8 +215,8 @@ jul_2019_map <- ggplot(seattle_map) +
     axis.ticks = element_blank(),
     axis.text = element_blank(),
     legend.position = "none",
-    plot.title = element_text(hjust = 0.5,size=6),
-    axis.title.x = element_text(size=5,hjust = 0.5)
+    plot.title = element_text(hjust = 0.5, size = 6),
+    axis.title.x = element_text(size = 5, hjust = 0.5)
   ) +
   scale_alpha(guide = "none") +
   scale_size(guide = "none") +
@@ -241,16 +240,16 @@ range(cbg_degree$degree)
 
 # log scale on x-axis
 jul_2019_log <- ggpubr::gghistogram(cbg_degree,
-                                    size = 0.1,
-                                    font.label = list(size = 7),
-                                    x = "degree",
-                                    add = "median", rug = F,
-                                    color = "black", fill = "#00AFBB"
+  size = 0.2,
+  font.label = list(size = 7),
+  x = "degree",
+  add = "median", rug = F,
+  color = "black", fill = "#00AFBB"
 ) +
   xlab("Degree k") +
   ylab("Frequency") +
-  theme_bw(base_size = 7)+
-  theme(axis.title = element_text(size=5))+
+  theme_bw(base_size = 7) +
+  theme(axis.title = element_text(size = 5)) +
   scale_x_continuous(expand = c(0, 0), trans = "log10") +
   scale_y_continuous(expand = c(0, 0), lim = c(0, 75)) +
   expand_limits(x = c(1, 190))
@@ -302,8 +301,8 @@ march_2020_map <-
     axis.ticks = element_blank(),
     axis.text = element_blank(),
     legend.position = "none",
-    plot.title = element_text(hjust = 0.5,size=6),
-    axis.title.x = element_text(size=5,hjust = 0.5)
+    plot.title = element_text(hjust = 0.5, size = 6),
+    axis.title.x = element_text(size = 5, hjust = 0.5)
   ) +
   scale_alpha(guide = "none") +
   scale_size(guide = "none") +
@@ -328,16 +327,16 @@ range(cbg_degree$degree)
 
 ## degree histogram
 mar_2020_log <- ggpubr::gghistogram(cbg_degree,
-                                    size = 0.1,
-                                    font.label = list(size = 7),
-                                    x = "degree",
-                                    add = "median", rug = F,
-                                    color = "black", fill = "#00AFBB"
+  size = 0.2,
+  font.label = list(size = 7),
+  x = "degree",
+  add = "median", rug = F,
+  color = "black", fill = "#00AFBB"
 ) +
   xlab("Degree k") +
   ylab("Frequency") +
-  theme_bw(base_size = 7)+
-  theme(axis.title = element_text(size=5))+
+  theme_bw(base_size = 7) +
+  theme(axis.title = element_text(size = 5)) +
   scale_x_continuous(expand = c(0, 0), trans = "log10") +
   scale_y_continuous(expand = c(0, 0), lim = c(0, 75)) +
   expand_limits(x = c(1, 190))
@@ -369,7 +368,7 @@ july_2021_map <-
   geom_curve(
     data = weekly_visitors_cbg_within_seattle %>%
       filter(start_date == as.Date("2021-07-05") &
-               home_location == "non_resident" & scaled_visits_county >= 700),
+        home_location == "non_resident" & scaled_visits_county >= 700),
     aes(
       x = poi_lon, y = poi_lat, xend = visitor_lon, yend = visitor_lat,
       color = scaled_visits_county
@@ -389,8 +388,8 @@ july_2021_map <-
     axis.ticks = element_blank(),
     axis.text = element_blank(),
     legend.position = "none",
-    plot.title = element_text(hjust = 0.5,size=6),
-    axis.title.x = element_text(size=5,hjust = 0.5)
+    plot.title = element_text(hjust = 0.5, size = 6),
+    axis.title.x = element_text(size = 5, hjust = 0.5)
   ) +
   scale_alpha(guide = "none") +
   scale_size(guide = "none") +
@@ -415,15 +414,15 @@ range(cbg_degree$degree)
 
 ## degree histogram
 jul_2021_log <- ggpubr::gghistogram(cbg_degree,
-                                    size = 0.1,
-                                    x = "degree",
-                                    add = "median", rug = F,
-                                    color = "black", fill = "#00AFBB"
+  size = 0.2,
+  x = "degree",
+  add = "median", rug = F,
+  color = "black", fill = "#00AFBB"
 ) +
   xlab("Degree k") +
   ylab("Frequency") +
-  theme_bw(base_size = 7)+
-  theme(axis.title = element_text(size=5))+
+  theme_bw(base_size = 7) +
+  theme(axis.title = element_text(size = 5)) +
   scale_x_continuous(expand = c(0, 0), trans = "log10") +
   scale_y_continuous(expand = c(0, 0), lim = c(0, 75)) +
   expand_limits(x = c(1, 190))
@@ -438,12 +437,12 @@ jul_2021_map_w_deg_log
 
 weekly_visitors_cbg_within_seattle %>%
   filter(home_location == "non_resident" &
-           start_date == as.Date("2022-01-17")) %>%
-  summarize(net_movement = sum(scaled_visits_county))# 703591
+    start_date == as.Date("2022-01-17")) %>%
+  summarize(net_movement = sum(scaled_visits_county)) # 703591
 
 weekly_visitors_cbg_within_seattle %>%
   filter(home_location == "non_resident" &
-           start_date == as.Date("2022-01-17")) %>%
+    start_date == as.Date("2022-01-17")) %>%
   pull(scaled_visits_county) %>%
   range()
 
@@ -481,8 +480,8 @@ jan_2022_map <-
     axis.ticks = element_blank(),
     axis.text = element_blank(),
     legend.position = "none",
-    plot.title = element_text(hjust = 0.5,size=6),
-    axis.title.x = element_text(size=5,hjust = 0.5)
+    plot.title = element_text(hjust = 0.5, size = 6),
+    axis.title.x = element_text(size = 5, hjust = 0.5)
   ) +
   scale_alpha(guide = "none") +
   scale_size(guide = "none") +
@@ -506,15 +505,15 @@ range(cbg_degree$degree)
 
 ## degree histogram
 jan_2022_log <- ggpubr::gghistogram(cbg_degree,
-                                    size = 0.1,
-                                    x = "degree",
-                                    add = "median", rug = F,
-                                    color = "black", fill = "#00AFBB"
+  size = 0.2,
+  x = "degree",
+  add = "median", rug = F,
+  color = "black", fill = "#00AFBB"
 ) +
   xlab("Degree k") +
   ylab("Frequency") +
-  theme_bw(base_size = 7)+
-  theme(axis.title = element_text(size=5))+
+  theme_bw(base_size = 7) +
+  theme(axis.title = element_text(size = 5)) +
   scale_x_continuous(expand = c(0, 0), trans = "log10") +
   scale_y_continuous(expand = c(0, 0), lim = c(0, 75)) +
   expand_limits(x = c(1, 190))
@@ -539,7 +538,7 @@ july_2021_map <-
   geom_curve(
     data = weekly_visitors_cbg_within_seattle %>%
       filter(start_date == as.Date("2021-07-05") &
-               home_location == "non_resident" & scaled_visits_county >= 700),
+        home_location == "non_resident" & scaled_visits_county >= 700),
     aes(
       x = poi_lon, y = poi_lat, xend = visitor_lon, yend = visitor_lat,
       color = scaled_visits_county
@@ -560,8 +559,8 @@ july_2021_map <-
     axis.text = element_blank(),
     legend.background = element_blank(),
     legend.justification = "center",
-    legend.title = element_text(size=6),
-    legend.text = element_text(size=5)
+    legend.title = element_text(size = 6),
+    legend.text = element_text(size = 5)
   ) +
   scale_alpha(guide = "none") +
   scale_size(guide = "none") +
@@ -588,6 +587,6 @@ map_combined_and_hist
 
 ## Figure 3
 save_plot(map_combined_and_hist,
-          filename = "figures/fig_3_within_seattle_movement_up_to_Jan_2022_with_log_trans_deg_histogram.pdf",
-          units="mm",base_width = 180, base_height = 90, dpi=300
+  filename = "figures/fig_3_within_seattle_movement_up_to_Jan_2022_with_log_trans_deg_histogram.pdf",
+  units = "mm", base_width = 180, base_height = 90, dpi = 300
 )

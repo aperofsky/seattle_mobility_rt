@@ -1,9 +1,7 @@
 ## Input data are provided in the Epidemia_Models/epidemia_rt_output folder, so it's not necessary to run the Epidemia models to run this code
 ###################################################
 ## Combine Rt estimates from all pathogens
-## Compare SCAN COVID incidence vs King County cases (Figure S27)
 ## Plot Rt and incidence (Figure 1)
-## Save all Rt combined for downstream analyses
 ###################################################
 
 library(dplyr)
@@ -199,23 +197,22 @@ full_df <- full_df %>%
   mutate(
     all_sites_per_pos_ili_scaled_mean_mv_avg = zoo::rollmean(all_sites_per_pos_ili_scaled_mean, k = 15, align = "center", fill = NA),
     all_sites_per_pos_ili_scaled_sum_mv_avg = zoo::rollmean(all_sites_per_pos_ili_scaled_sum, k = 15, align = "center", fill = NA)
-    # all_sites_per_pos_ili_scaled_sum_loess_sm = smooth_vec(all_sites_per_pos_ili_scaled_sum, period = 15, degree = 1) #loess 4-week mov avg
   ) %>%
   ungroup() %>%
   filter(date < as.Date("2022-07-01"))
 
 # covid-19 incidence based on SFS/SCAN data
-sfs_covid_incidence <- full_df %>%
-  filter(organism == "SARS-CoV-2") %>%
-  dplyr::select(date, comm_all_ages_adj_per_pos_ili_scaled, hosp_all_ages_adj_per_pos_ili_scaled, all_sites_per_pos_ili_scaled_sum) %>%
-  filter(date > as.Date("2020-01-15"))
-
-sfs_covid_incidence_long <-
-  sfs_covid_incidence %>%
-  pivot_longer(cols = c(comm_all_ages_adj_per_pos_ili_scaled:all_sites_per_pos_ili_scaled_sum), names_to = "incidence_measure", values_to = "incidence")%>%
-  arrange(incidence_measure,date)%>%
-  group_by(incidence_measure) %>%
-  mutate(incidence_loess_sm = smooth_vec(incidence, period = 30, degree = 1))
+# sfs_covid_incidence <- full_df %>%
+#   filter(organism == "SARS-CoV-2") %>%
+#   dplyr::select(date, comm_all_ages_adj_per_pos_ili_scaled, hosp_all_ages_adj_per_pos_ili_scaled, all_sites_per_pos_ili_scaled_sum) %>%
+#   filter(date > as.Date("2020-01-15"))
+#
+# sfs_covid_incidence_long <-
+#   sfs_covid_incidence %>%
+#   pivot_longer(cols = c(comm_all_ages_adj_per_pos_ili_scaled:all_sites_per_pos_ili_scaled_sum), names_to = "incidence_measure", values_to = "incidence")%>%
+#   arrange(incidence_measure,date)%>%
+#   group_by(incidence_measure) %>%
+#   mutate(incidence_loess_sm = smooth_vec(incidence, period = 30, degree = 1))
 
 ###################################################
 ## King County COVID-19 cases
@@ -275,12 +272,12 @@ plot_coef <- 20
 #### 2-week moving avg of Rt values
 all_endemic_plot <- ggplot(full_df2 %>% filter(date > as.Date("2018-12-01"))) +
   geom_rect(aes(xmin = as.Date("2019-02-03"), xmax = as.Date("2019-02-15"), ymin = -Inf, ymax = Inf),
-            alpha = 0.2,
-            fill = "blue", data = data.frame(x = 0, y = 0)
+    alpha = 0.2,
+    fill = "blue", data = data.frame(x = 0, y = 0)
   ) +
   geom_rect(aes(xmin = as.Date("2020-03-23"), xmax = as.Date("2020-06-05"), ymin = -Inf, ymax = Inf),
-            alpha = 0.2,
-            fill = "orange", data = data.frame(x = 0, y = 0)
+    alpha = 0.2,
+    fill = "orange", data = data.frame(x = 0, y = 0)
   ) +
   geom_vline(xintercept = as.Date("2020-02-29"), lty = "dashed", color = "darkgreen") +
   geom_line(
@@ -292,7 +289,7 @@ all_endemic_plot <- ggplot(full_df2 %>% filter(date > as.Date("2018-12-01"))) +
     data = full_df2,
     aes(x = date, ymin = 0, ymax = 100 * all_sites_per_pos_ili_scaled_sum_mv_avg / plot_coef, fill = organism), alpha = 0.2
   ) +
-  geom_hline(yintercept = 1, lty = "dashed", color = "#004488", lwd = 0.5, alpha=0.5) +
+  geom_hline(yintercept = 1, lty = "dashed", color = "#004488", lwd = 0.5, alpha = 0.5) +
   geom_line(
     data = all_endemic_results_avg %>%
       dplyr::select(date, median, organism) %>%
@@ -331,9 +328,6 @@ all_endemic_plot
 ###################################################
 all_covid_rt <- read_rds(paste0(dir, "COVID_2020_2022_biowulf_epidemia_model_rt_only.rds"))
 all_covid_rt$organism <- "SARS-CoV-2"
-head(all_covid_rt)
-all_covid_rt %>%
-  print(n = 20)
 
 # first case
 covid_cases %>%
@@ -365,6 +359,7 @@ all_covid_rt %>%
   )
 # by March 1, 2020, lower and upper prediction intervals are 13% below and 15% above median Rt
 
+# import mobility data to get oxford stringency index
 combined_mob <- read_rds("1_Seattle_Mobility_Data/mobility_data/mobility_metrics_for_epidemia.rds") %>% dplyr::select(date, epi_date, oxford_stringency_index)
 combined_mob$date <- as.Date(combined_mob$date)
 combined_mob$epi_date <- as.Date(combined_mob$epi_date)
@@ -408,7 +403,7 @@ all_covid_plot <- ggplot() +
     aes(x = date, ymin = lower, ymax = upper, fill = "All"), alpha = 0.5
   ) +
   theme_bw(base_size = 7) +
-  geom_hline(aes(yintercept = 1), lty = "dashed", color = "#004488", lwd = 0.5,alpha=0.5) +
+  geom_hline(aes(yintercept = 1), lty = "dashed", color = "#004488", lwd = 0.5, alpha = 0.5) +
   scale_y_continuous(
     # Features of the first axis
     name = "Rt or OSI",
@@ -421,13 +416,13 @@ all_covid_plot <- ggplot() +
   guides(fill = "none") +
   xlab("date") +
   scale_x_date(expand = c(0, 0), date_breaks = "4 months", date_labels = "%b %Y") +
-  theme(legend.position = c(0.65, 0.8), legend.background = element_blank(),legend.text=element_text(size=7))
+  theme(legend.position = c(0.65, 0.8), legend.background = element_blank(), legend.text = element_text(size = 7))
 all_covid_plot
 
 end_and_cov <- plot_grid(all_endemic_plot,
-                         all_covid_plot + ggtitle("SARS-CoV-2") + theme(plot.title = element_text(hjust = 0.5)),
-                         nrow = 2, label_size = 7,
-                         labels = "AUTO", rel_heights = c(6.5, 3)
+  all_covid_plot + ggtitle("SARS-CoV-2") + theme(plot.title = element_text(hjust = 0.5)),
+  nrow = 2, label_size = 7,
+  labels = "AUTO", rel_heights = c(6.5, 3)
 )
 end_and_cov
-save_plot(end_and_cov, filename = "figures/fig_1_rt_endemic_and_covid_combined.pdf", units="mm",base_width = 180, base_height = 180, dpi=300)
+save_plot(end_and_cov, filename = "figures/fig_1_rt_endemic_and_covid_combined.pdf", units = "mm", base_width = 180, base_height = 180, dpi = 300)

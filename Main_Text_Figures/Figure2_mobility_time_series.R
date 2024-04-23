@@ -1,11 +1,6 @@
-## start here if you don't have access to the raw SafeGraph data
 ####################################################################################
-## Mobility figures
-## Figure S4: % change in baseline for individual POI categories
 ## Figure 2: % change in baseline for large scale movements and different POI categories; % staying home and % masking
-## Figure S17: Omicron period % change in baseline for large scale movements and different POI categories; % staying home and % masking
 ####################################################################################
-
 library(dplyr)
 library(tidyr)
 library(ggplot2)
@@ -24,10 +19,7 @@ names(combined_mob)
 
 ## add in time periods for covid waves
 combined_long <- combined_mob %>%
-  dplyr::select(
-    -mask_wearing_final,
-    # -fb_stay_put_custom
-  ) %>%
+  dplyr::select(-mask_wearing_final) %>%
   mutate(time_period = case_when(
     date < as.Date("2020-01-01") ~ "pre-pandemic",
     date >= as.Date("2020-01-01") & date < as.Date("2021-03-01") ~ "ancestral",
@@ -127,14 +119,14 @@ levels(combined_long$mobility_metric)
 
 flow_plot <- ggplot() +
   geom_rect(aes(xmin = as.Date("2019-02-03"), xmax = as.Date("2019-02-15"), ymin = -Inf, ymax = Inf),
-            alpha = 0.2,
-            fill = "blue"
+    alpha = 0.2,
+    fill = "blue"
   ) +
   geom_rect(aes(xmin = as.Date("2020-03-16"), xmax = as.Date("2020-06-05"), ymin = -Inf, ymax = Inf),
-            alpha = 0.2,
-            fill = "orange"
+    alpha = 0.2,
+    fill = "orange"
   ) +
-  geom_hline(aes(yintercept = 0), lty = "dashed",alpha=0.5) +
+  geom_hline(aes(yintercept = 0), lty = "dashed", alpha = 0.5) +
   geom_vline(xintercept = as.Date("2020-02-28"), lty = "dashed", color = "darkgreen", lwd = 0.5) +
   geom_line(
     data = combined_long %>% filter(!is.na(value)) %>%
@@ -167,14 +159,14 @@ flow_plot
 
 poi_plot <- ggplot() +
   geom_rect(aes(xmin = as.Date("2019-02-03"), xmax = as.Date("2019-02-15"), ymin = -Inf, ymax = Inf),
-            alpha = 0.2,
-            fill = "blue"
+    alpha = 0.2,
+    fill = "blue"
   ) +
   geom_rect(aes(xmin = as.Date("2020-03-16"), xmax = as.Date("2020-06-05"), ymin = -Inf, ymax = Inf),
-            alpha = 0.2,
-            fill = "orange"
+    alpha = 0.2,
+    fill = "orange"
   ) +
-  geom_hline(aes(yintercept = 0), lty = "dashed",alpha=0.5) +
+  geom_hline(aes(yintercept = 0), lty = "dashed", alpha = 0.5) +
   geom_vline(xintercept = as.Date("2020-02-28"), lty = "dashed", color = "darkgreen", lwd = 0.5) +
   geom_line(
     data = combined_long %>% filter(!is.na(value)) %>%
@@ -196,7 +188,7 @@ poi_plot <- ggplot() +
       "full service restaurants", "religious organizations",
       "groceries and pharmacies", "colleges", "elementary and high schools"
     ),
-    labels=c(
+    labels = c(
       "Transit",
       "Full service restaurants", "Religious organizations",
       "Groceries and pharmacies", "Colleges", "Elementary and high schools"
@@ -205,8 +197,8 @@ poi_plot <- ggplot() +
   ) +
   scale_x_date(expand = c(0, 0), date_breaks = "4 months", date_labels = "%b-%y") +
   ggtitle("Visits to Points of Interest (POIs)") +
-  theme(plot.title = element_text(hjust = 0.5), legend.position = "bottom",legend.direction = "horizontal") +
-  guides(colour = guide_legend(nrow = 1))+
+  theme(plot.title = element_text(hjust = 0.5), legend.position = "bottom", legend.direction = "horizontal") +
+  guides(colour = guide_legend(nrow = 1)) +
   ylim(c(-90, 90))
 poi_plot
 
@@ -226,12 +218,12 @@ combined_mob2 <-
 coeff <- 2
 stay_home_plot <- ggplot(combined_mob2) +
   geom_rect(aes(xmin = as.Date("2019-02-03"), xmax = as.Date("2019-02-15"), ymin = -Inf, ymax = Inf),
-            alpha = 0.2,
-            fill = "blue", data = data.frame(x = 0, y = 0)
+    alpha = 0.2,
+    fill = "blue", data = data.frame(x = 0, y = 0)
   ) +
   geom_rect(aes(xmin = as.Date("2020-03-16"), xmax = as.Date("2020-06-05"), ymin = -Inf, ymax = Inf),
-            alpha = 0.2,
-            fill = "orange", data = data.frame(x = 0, y = 0)
+    alpha = 0.2,
+    fill = "orange", data = data.frame(x = 0, y = 0)
   ) +
   geom_vline(xintercept = as.Date("2020-02-28"), lty = "dashed", color = "darkgreen", lwd = 0.5) +
   geom_line(aes(x = date, y = fb_stay_put_custom, color = "% Staying Home"), lwd = 0.7) +
@@ -244,7 +236,7 @@ stay_home_plot <- ggplot(combined_mob2) +
   scale_y_continuous(
     # Features of the first axis
     name = "% Staying Home",
-    
+
     # Add a second axis and specify its features
     sec.axis = sec_axis(~ . * coeff, name = "% Wearing Masks")
   ) +
@@ -255,9 +247,9 @@ stay_home_plot
 ####################################################################################
 ## Figure 2
 ####################################################################################
-combined <- plot_grid(flow_plot, poi_plot, stay_home_plot, nrow = 3, labels = "AUTO",
-                      label_size = 7, rel_heights = c(0.75, 0.75, 0.75), align = "hv")
+combined <- plot_grid(flow_plot, poi_plot, stay_home_plot,
+  nrow = 3, labels = "AUTO",
+  label_size = 7, rel_heights = c(0.75, 0.75, 0.75), align = "hv"
+)
 combined
-# save_plot(combined, filename = "1_Seattle_Mobility_Data/mobility_figures/fig_2_mobility_flow_and_poi_visits_time_series.png", base_width = 14, base_height = 14)
-save_plot(combined, filename = "figures/fig_2_mobility_flow_and_poi_visits_time_series.pdf",  units="mm",base_width = 180, base_height = 180, dpi=300)
-
+save_plot(combined, filename = "figures/fig_2_mobility_flow_and_poi_visits_time_series.pdf", units = "mm", base_width = 180, base_height = 180, dpi = 300)
