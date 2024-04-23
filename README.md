@@ -5,7 +5,7 @@ Corresponding author: Amanda Perofsky (acperof@uw.edu)
 
 ## Abstract
 
-Many studies have used mobile device location data to model SARS-CoV-2 dynamics, yet relationships between mobility behavior and endemic respiratory pathogens are less understood. We studied the effects of population mobility on the transmission of 16 endemic viruses and SARS-CoV-2 in Seattle over a 4-year period, 2018-2022. Before 2020, visits to schools and daycares, within-city mixing, and visitor inflow preceded or coincided with seasonal outbreaks of endemic viruses. Pathogen circulation dropped substantially after the initiation of COVID-19 stay-at-home orders in March 2020. During this period, mobility was a positive, leading indicator of transmission of all endemic viruses and lagging and negatively correlated with SARS-CoV-2 activity. Mobility was briefly predictive of SARS-CoV-2 transmission when restrictions relaxed but associations weakened in subsequent waves. The rebound of endemic viruses was heterogeneously timed but exhibited stronger, longer-lasting relationships with mobility than SARS-CoV-2. Overall, mobility is most predictive of respiratory virus transmission during periods of dramatic behavioral change and at the beginning of epidemic waves.
+Many studies have used mobile device location data to model SARS-CoV-2 dynamics, yet relationships between mobility behavior and endemic respiratory pathogens are less understood. We studied the effects of population mobility on the transmission of 17 endemic viruses and SARS-CoV-2 in Seattle over a 4-year period, 2018-2022. Before 2020, visits to schools and daycares, within-city mixing, and visitor inflow preceded or coincided with seasonal outbreaks of endemic viruses. Pathogen circulation dropped substantially after the initiation of COVID-19 stay-at-home orders in March 2020. During this period, mobility was a positive, leading indicator of transmission of all endemic viruses and lagging and negatively correlated with SARS-CoV-2 activity. Mobility was briefly predictive of SARS-CoV-2 transmission when restrictions relaxed but associations weakened in subsequent waves. The rebound of endemic viruses was heterogeneously timed but exhibited stronger, longer-lasting relationships with mobility than SARS-CoV-2. Overall, mobility is most predictive of respiratory virus transmission during periods of dramatic behavioral change and at the beginning of epidemic waves.
 
 ## Software and Hardware
 Data processing and statistical analyses are performed with the statistical computing software [R](https://www.r-project.org/) version 4.3, unless otherwise noted.
@@ -42,7 +42,11 @@ renv::restore() #install the specific package versions recorded in the lockfile 
 
 * `6_LASSO_Predictive_Models` : Use moving window LASSO regression models to produce short-term forecasts of rhinovirus, adenovirus, and SARS-CoV-2 Rt. Model covariates include the activity of the target virus during the previous 2 weeks (14 autoregressive terms), cell phone mobility trends, the co-circulation of other viruses, and climatic data. Compare prediction accuracy across models with different combinations of covariates. The README file within the folder includes more details about model inputs.
 
-**An overview of statistical analyses and their various inputs.**
+### Other folders 
+* `Main_Text_Figures`: Code to produce main text figures that meet the journal guidelines.
+* `renv`: Stores the library that contains all R packages used in the project.
+
+**An overview of statistical analyses and their various inputs.** Dark blue boxes correspond to inputs derived from Seattle Flu Study (SFS) data, light blue boxes correspond to inputs from external data sources, and purple boxes correspond to statistical analyses.
 <figure>
 <img src="figures/fig_s28_flowchart_paper_analyses.png" alt="analysis flowchart"/>
 </figure>
