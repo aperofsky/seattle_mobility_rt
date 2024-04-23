@@ -275,14 +275,14 @@ path_ccf_mv_window <- function(pathogen = "covid", l = 0.077) {
         ungroup()
       
       p <- ggplot() +
-        geom_rect(data = sum_df, aes(xmin = -Inf, xmax = 0, ymin = 0, ymax = Inf), alpha = 0.02, fill = "yellow") +
+        geom_rect(data = sum_df, aes(xmin = -Inf, xmax = 0, ymin = 0, ymax = Inf), alpha = 0.05, fill = "yellow") +
+        geom_hline(yintercept = 0, lty = "dashed",size=0.2) +
+        geom_vline(xintercept = 0, lty = "dashed",size=0.2) +
         geom_point(
           data = sum_df,
           aes(x = obs_max_ccf_lag.mean, y = mean_cor_sp, fill = mobility_metric), 
-          size = 1.5, pch = 21, alpha = 0.8, stroke = 0.2
+          size = 1.5, pch = 21, alpha = 0.8, stroke = 0.1
         ) +
-        geom_hline(yintercept = 0, lty = "dashed",size=0.2) +
-        geom_vline(xintercept = 0, lty = "dashed",size=0.2) +
         facet_wrap(~ as.factor(month), nrow = 1) +
         theme_bw(base_size = 7) +
         ylab("Cross-Correlation Coefficient") +
@@ -292,11 +292,12 @@ path_ccf_mv_window <- function(pathogen = "covid", l = 0.077) {
         theme(
           legend.position = "bottom", 
           legend.text = element_text(size = 5),
-          axis.text = element_text(size = 4), 
+          axis.text = element_text(size = 3), 
           strip.text = element_text(size = 5),
           axis.title = element_text(size=5),
           title = element_text(size = 7), 
-          strip.background = element_blank()
+          strip.background = element_blank(),
+          axis.ticks = element_line(size=0.15)
         ) +
         ylim(-1, 1) +
         scale_x_continuous(breaks = c(-4, -2, 0, 2, 4), labels = c(-4, -2, 0, 2, 4), limits = c(-5, 5)) +
@@ -318,14 +319,14 @@ path_ccf_mv_window <- function(pathogen = "covid", l = 0.077) {
         ungroup()
       
       p <- ggplot() +
-        geom_rect(data = sum_df, aes(xmin = -Inf, xmax = 0, ymin = 0, ymax = Inf), alpha = 0.02, fill = "yellow") +
+        geom_rect(data = sum_df, aes(xmin = -Inf, xmax = 0, ymin = 0, ymax = Inf), alpha = 0.05, fill = "yellow") +
+        geom_hline(yintercept = 0, lty = "dashed",size=0.2) +
+        geom_vline(xintercept = 0, lty = "dashed",size=0.2) +
         geom_point(
           data = sum_df,
           aes(x = obs_max_ccf_lag.mean, y = mean_cor_sp, fill = mobility_metric), 
-          size = 1.5, pch = 21, alpha = 0.8, stroke = 0.2
+          size = 1.5, pch = 21, alpha = 0.8, stroke = 0.1
         ) +
-        geom_hline(yintercept = 0, lty = "dashed",size=0.2) +
-        geom_vline(xintercept = 0, lty = "dashed",size=0.2) +
         facet_wrap(~ as.factor(month), nrow = 1) +
         theme_bw(base_size = 7) +
         ylab("Cross-Correlation Coefficient") +
@@ -335,11 +336,12 @@ path_ccf_mv_window <- function(pathogen = "covid", l = 0.077) {
         theme(
           legend.position = "bottom", 
           legend.text = element_text(size = 5),
-          axis.text = element_text(size = 4), 
+          axis.text = element_text(size = 3), 
           strip.text = element_text(size = 5),
           axis.title = element_text(size=5),
           title = element_text(size = 7), 
-          strip.background = element_blank()
+          strip.background = element_blank(),
+          axis.ticks = element_line(size=0.15)
         ) +
         ylim(-1, 1) +
         scale_x_continuous(breaks = c(-4, -2, 0, 2, 4), labels = c(-4, -2, 0, 2, 4), limits = c(-5, 5)) +
@@ -359,14 +361,14 @@ path_ccf_mv_window <- function(pathogen = "covid", l = 0.077) {
         ungroup()
       
       p <- ggplot() +
-        geom_rect(data = sum_df, aes(xmin = -Inf, xmax = 0, ymin = 0, ymax = Inf), alpha = 0.02, fill = "yellow") +
+        geom_rect(data = sum_df, aes(xmin = -Inf, xmax = 0, ymin = 0, ymax = Inf), alpha = 0.05, fill = "yellow") +
+        geom_hline(yintercept = 0, lty = "dashed",size=0.2) +
+        geom_vline(xintercept = 0, lty = "dashed",size=0.2) +
         geom_point(
           data = sum_df,
           aes(x = obs_max_ccf_lag.mean, y = mean_cor_sp, fill = mobility_metric), 
-          size = 1.5, pch = 21, alpha = 0.8, stroke = 0.2
+          size = 1.5, pch = 21, alpha = 0.8, stroke = 0.1
         ) +
-        geom_hline(yintercept = 0, lty = "dashed",size=0.2) +
-        geom_vline(xintercept = 0, lty = "dashed",size=0.2) +
         facet_wrap(~ as.factor(month), nrow = 1) +
         theme_bw(base_size = 7) +
         ylab("Cross-Correlation Coefficient") +
@@ -376,12 +378,12 @@ path_ccf_mv_window <- function(pathogen = "covid", l = 0.077) {
         theme(
           legend.position = "bottom", 
           legend.text = element_text(size = 5),
-          axis.text = element_text(size = 4), 
+          axis.text = element_text(size = 3), 
           strip.text = element_text(size = 5),
           axis.title = element_text(size=5),
           title = element_text(size = 7), 
-          strip.background = element_blank()
-        ) +
+          strip.background = element_blank(),
+          axis.ticks = element_line(size=0.15)) +
         ylim(-1, 1) +
         scale_x_continuous(breaks = c(-4, -2, 0, 2, 4), labels = c(-4, -2, 0, 2, 4), limits = c(-5, 5)) +
         ggtitle(title)
