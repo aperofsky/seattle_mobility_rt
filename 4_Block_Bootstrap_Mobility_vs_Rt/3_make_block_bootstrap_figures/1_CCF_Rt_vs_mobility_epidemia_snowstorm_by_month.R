@@ -372,7 +372,6 @@ scov_229E_OC43_mv_win_plot[[1]]
 
 scov_HKU1_NL63_mv_win_plot <- path_ccf_mv_window_snowstorm(pathogen = "scov_HKU1_NL63", l = 0.05)
 scov_HKU1_NL63_mv_win_plot[[1]]
-## no positive correlations
 
 com <- plot_grid(
   adeno_mv_win_plot[[1]] + theme(legend.position = "none") + ylab("Cross-Correlation"),

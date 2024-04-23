@@ -596,11 +596,26 @@ com <- plot_grid(
 com
 leg <- get_legend(h1n1_mv_win_plot[[1]] + theme(legend.direction = "horizontal"))
 
+leg <- cowplot::get_plot_component(h1n1_mv_win_plot[[1]] +
+                                         guides(color = "none") +
+                                         theme(
+                                           legend.position = "bottom",
+                                           legend.direction = "horizontal",
+                                           legend.justification = "center",
+                                           legend.box.just = "bottom",
+                                           legend.key.size = unit(0.1, "lines"),
+                                           legend.text = element_text(size = 14),
+                                           legend.title = element_text(size = 16)),
+                                   'guide-box-bottom', return_all = TRUE)
+cowplot::ggdraw(leg)
+plot_component_names(h1n1_mv_win_plot[[1]])
+
 covid <- covid_mv_win_plot[[1]] + ylab("Cross-Correlation") + theme(legend.position = "none") + ggtitle("SARS-CoV-2") + xlab("Temporal Lag (weeks)")
 comb <- com + inset_element(covid, right = 1, bottom = 0, top = 0.165, left = 0.705)
 comb
 
-com2 <- plot_grid(comb, leg, nrow = 2, rel_heights = c(7, 0.3))
+com2 <- plot_grid(comb, leg, nrow = 2, rel_heights = c(6, 0.4))
 com2
 
-save_plot(com2, filename = "figures/fig_s10_CCF_pathogen_rt_and_mobility_by_month_2019_2020_spearman_exp_decay_all_indicators.png", base_width = 24, base_height = 16)
+save_plot(com2, filename = "figures/fig_s10_CCF_pathogen_rt_and_mobility_by_month_2019_2020_spearman_exp_decay_all_indicators.png", 
+          base_width = 24, base_height = 16)

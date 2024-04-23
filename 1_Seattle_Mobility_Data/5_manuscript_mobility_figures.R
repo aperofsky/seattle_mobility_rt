@@ -88,17 +88,18 @@ combined_long %>%
 # date       mobility_metric                    value
 # <date>     <fct>                              <dbl>
 # 1 2019-02-05 elementary and high schools       -84.0
-# 2 2019-02-11 performing arts and sports events -81.6
+# 2 2019-02-11 performing arts and sports events -81.5
 # 3 2019-02-09 colleges                          -80.9
 # 4 2019-02-17 transit                           -75.6
 # 5 2019-02-04 child day care                    -60.3
-# 6 2019-02-04 influx out-of-state visitors      -53.0
-# 7 2019-02-04 groceries and pharmacies          -49.1
-# 8 2019-02-10 full service restaurants          -48.2
-# 9 2019-02-04 influx other WA counties          -38.2
-# 10 2019-02-04 between-neighborhood movement     -32.2
-# 11 2019-02-18 within-neighborhood movement      -29.3
-# 12 2019-02-09 religious organizations           -26.8
+# 6 2019-02-04 influx out-of-state visitors      -52.9
+# 7 2019-02-04 groceries and pharmacies          -49.0
+# 8 2019-02-04 influx other WA counties          -38.2
+# 9 2019-02-12 full service restaurants          -32.6
+# 10 2019-02-18 within-neighborhood movement      -29.4
+# 11 2019-02-09 religious organizations           -26.1
+# 12 2019-02-11 between-neighborhood movement     -16.5
+# 13 2019-02-24 % devices staying home             33.5
 
 ####################################################################################
 ## declines in mobility after State of Emergency and by the time of business closures on March 16
@@ -117,17 +118,18 @@ combined_long %>%
 # date       mobility_metric                   value
 # <date>     <fct>                             <dbl>
 # 1 2020-03-15 transit                           -94.6
-# 2 2020-03-15 performing arts and sports events -88.8
+# 2 2020-03-15 performing arts and sports events -88.7
 # 3 2020-03-14 elementary and high schools       -86.1
 # 4 2020-03-15 colleges                          -82.9
 # 5 2020-03-16 influx out-of-state visitors      -68.9
 # 6 2020-03-15 child day care                    -67.3
-# 7 2020-03-16 within-neighborhood movement      -62.7
-# 8 2020-03-16 between-neighborhood movement     -62.2
-# 9 2020-03-17 full service restaurants          -59.6
-# 10 2020-03-14 religious organizations           -54.6
-# 11 2020-03-16 influx other WA counties          -43.3
+# 7 2020-03-16 between-neighborhood movement     -63.5
+# 8 2020-03-16 within-neighborhood movement      -62.6
+# 9 2020-03-17 full service restaurants          -59.5
+# 10 2020-03-14 religious organizations           -54.3
+# 11 2020-03-16 influx other WA counties          -43.2
 # 12 2020-03-08 groceries and pharmacies          -28.8
+# 13 2020-02-27 % devices staying home             25.2
 
 ####################################################################################
 ## declines in mobility after SAH orders
@@ -147,15 +149,16 @@ combined_long %>%
 # 1 2020-05-09 transit                           -95.4
 # 2 2020-05-25 performing arts and sports events -92.3
 # 3 2020-05-10 colleges                          -90.4
-# 4 2020-05-25 elementary and high schools       -90.4
-# 5 2020-04-06 influx out-of-state visitors      -84.3
+# 4 2020-05-25 elementary and high schools       -90.3
+# 5 2020-04-06 influx out-of-state visitors      -84.2
 # 6 2020-04-12 full service restaurants          -78.4
 # 7 2020-04-12 child day care                    -76.0
-# 8 2020-04-20 between-neighborhood movement     -73.7
+# 8 2020-04-20 between-neighborhood movement     -71.1
 # 9 2020-04-20 within-neighborhood movement      -70.6
 # 10 2020-05-04 religious organizations           -65.1
 # 11 2020-04-06 influx other WA counties          -55.2
-# 12 2020-04-12 groceries and pharmacies          -47.6
+# 12 2020-04-12 groceries and pharmacies          -47.5
+# 13 2020-06-03 % devices staying home             39.8
 
 ####################################################################################
 ## max % staying at home during SAH orders
@@ -168,7 +171,7 @@ combined_long %>%
   slice_max(value, n = 1)
 # date       mobility_metric                    value
 # <date>     <fct>                              <dbl>
-# 13 2020-03-29 % devices staying home             53.4
+# 13 2020-03-28 % devices staying home             49.8
 ####################################################################################
 ## Figure S4: % change in baseline for individual POI categories
 ####################################################################################
@@ -297,7 +300,7 @@ flow_plot
 ## declines during omicron
 omicron_flow_plot <- ggplot() +
   geom_rect(aes(xmin = as.Date("2021-11-01"), xmax = as.Date("2022-02-01"), ymin = -Inf, ymax = Inf),
-    alpha = 0.2,
+    alpha = 0.1,
     fill = "blue"
   ) +
   geom_hline(aes(yintercept = 0), lty = "dashed") +
@@ -322,7 +325,7 @@ omicron_flow_plot <- ggplot() +
   ggtitle("Within-City Movement and In-Flows") +
   theme(plot.title = element_text(hjust = 0.5), legend.position = "bottom") +
   ylim(c(-60, 60))
-
+omicron_flow_plot
 ####################################################################################
 ## Foot traffic to different categories of POIs: Figure 2B and Figure 16B
 ####################################################################################
@@ -369,7 +372,7 @@ poi_plot
 ## declines during omicron
 omicron_poi_plot <- ggplot() +
   geom_rect(aes(xmin = as.Date("2021-11-01"), xmax = as.Date("2022-02-01"), ymin = -Inf, ymax = Inf),
-    alpha = 0.2,
+    alpha = 0.1,
     fill = "blue"
   ) +
   geom_hline(aes(yintercept = 0), lty = "dashed") +
@@ -443,18 +446,27 @@ stay_home_plot <- ggplot(combined_mob2) +
   scale_color_jcolors(palette = "pal8")
 stay_home_plot
 
-## max devices staying at home during omicron wave = 47.6%
-combined_mob2 %>%
+## max devices staying at home during omicron wave = 45.7%
+combined_mob %>%
+  dplyr::select(date, fb_stay_put_custom, mask_wearing_final) %>%
   filter(date > as.Date("2021-09-01") & date < as.Date("2022-04-01")) %>%
   slice_max(fb_stay_put_custom)
 # date       fb_stay_put_custom mask_wearing_final
 # <date>                  <dbl>              <dbl>
-# 1 2021-12-29               47.6               92.4
+# 1 2021-12-29             47.6              92.4
+
+combined_mob %>%
+  dplyr::select(date, fb_stay_put_custom, mask_wearing_final) %>%
+  filter(date >= as.Date("2021-11-20") & date < as.Date("2022-02-01"))%>%
+  slice_min(fb_stay_put_custom)
+# date       fb_stay_put_custom mask_wearing_final
+# <date>                  <dbl>              <dbl>
+# 1 2021-12-16               33.3               88.8
 
 # increases during omicron
 omicron_stay_home_plot <- ggplot() +
   geom_rect(aes(xmin = as.Date("2021-11-01"), xmax = as.Date("2022-02-01"), ymin = -Inf, ymax = Inf),
-    alpha = 0.2,
+    alpha = 0.1,
     fill = "blue"
   ) +
   geom_line(aes(x = date, y = mask_wearing_final, color = "% Wearing Masks"), lwd = 1, data = combined_mob2 %>% filter(date > as.Date("2021-09-01") & date < as.Date("2022-04-01"))) +

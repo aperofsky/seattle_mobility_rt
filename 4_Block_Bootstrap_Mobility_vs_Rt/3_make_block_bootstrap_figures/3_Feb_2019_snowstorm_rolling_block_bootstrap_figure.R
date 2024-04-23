@@ -259,7 +259,7 @@ winter_2019_rt <- ggplot() +
       dplyr::select(date, level, organism, lower, upper) %>%
       filter(level == 90) %>%
       distinct() %>% droplevels(),
-    aes(x = date, ymin = lower, ymax = upper, fill = organism), alpha = 0.8
+    aes(x = date, ymin = lower, ymax = upper, fill = organism), alpha = 0.5
   ) +
   theme_bw(base_size = 12) +
   scale_x_date(date_breaks = "2 weeks", date_labels = "%b %d", expand = c(0.02, 0.02)) +

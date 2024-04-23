@@ -183,7 +183,7 @@ cont_rt <- ggplot() +
       filter(epi_date > as.Date("2020-01-01") & epi_date < as.Date("2022-02-13")) %>%
       dplyr::select(epi_date, median, organism) %>%
       distinct() %>% droplevels(),
-    aes(x = epi_date, y = median, color = organism), lwd = 1.2, lty = "solid"
+    aes(x = epi_date, y = median, color = organism), lwd = 1.5, lty = "solid"
   ) +
   geom_ribbon(
     data = rt_weekly %>%
@@ -192,7 +192,7 @@ cont_rt <- ggplot() +
       dplyr::select(epi_date, level, organism, lower, upper) %>%
       filter(level == 90) %>%
       distinct() %>% droplevels(),
-    aes(x = epi_date, ymin = lower, ymax = upper, fill = organism), alpha = 0.9
+    aes(x = epi_date, ymin = lower, ymax = upper, fill = organism), alpha = 0.5
   ) +
   theme_bw(base_size = 16) +
   scale_x_date(date_breaks = "4 months", date_labels = "%b %y", expand = c(0.02, 0.02)) +

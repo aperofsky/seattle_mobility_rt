@@ -2,7 +2,7 @@
 ## Compare Rt before and after 2 major events:
 ## 1. Feb 2019 snowstorm
 ## 2. Feb 28 2020 state of emergency declaration
-## Method: non-parametric bootstrap test for the ratio of two means (boot and boot.pval packages)
+## Method: two-sided non-parametric bootstrap test for the ratio of two means (boot and boot.pval packages)
 ###################################################
 
 library(dplyr)
@@ -59,7 +59,7 @@ for (i in path_list) {
   ratio <- function(d, w) sum(d$x * w) / sum(d$y * w)
   # H0: ratio = 1
   set.seed(458)
-  m <- boot(rt_df, ratio, R = 999, stype = "w")
+  m <- boot(rt_df, ratio, R =1000, stype = "w")
   mean <- 1 - mean(m$t)
   m_ci <- boot.ci(m, conf = 0.95, type = "perc")
   ci <- 1 - m_ci$percent[4:5]
@@ -80,22 +80,22 @@ df <- df %>%
   arrange(mean) %>%
   mutate_at(c("mean", "ci[2]", "ci[1]"), ~ 100 * .) %>%
   mutate_at(c("mean", "ci[2]", "ci[1]"), ~ round(., 2))
-df$p_value <- format.pval(df$p_value, digits = 2)
+# df$p_value <- format.pval(df$p_value, digits = 2) #provide exact p values in Table 2
 df
 
 ## nonparameteric bootstrap
 # i                             mean  ci[2]  ci[1] p_value
-# 1                     RSV A -39.88 -44.61 -34.53  <2e-16
-# 2                Adenovirus -38.66 -43.07 -33.77  <2e-16
-# 3                     RSV B -36.53 -40.46 -31.92  <2e-16
-# 4                        EV -33.24 -39.86 -25.10  <2e-16
-# 5                  IAV/H1N1 -19.44 -24.00 -14.69  <2e-16
-# 6  Seasonal CoV HKU1 + NL63 -17.93 -18.78 -17.03  <2e-16
-# 7                  IAV/H3N2 -12.35 -16.98  -7.32  <2e-16
-# 8  Seasonal CoV 229E + OC43  -9.60 -14.49  -4.71  <2e-16
-# 9                        RV   1.51   0.00   2.91   0.051
-# 10          HPIV-3 + HPIV-4  13.77   8.67  18.37   0.001
-# 11                     hMPV  19.45  16.27  22.19   0.001
+# 1                     RSV A -39.88 -44.37 -34.69 1.0e-16
+# 2                Adenovirus -38.66 -42.99 -33.42 1.0e-16
+# 3                     RSV B -36.53 -40.28 -31.92 1.0e-16
+# 4                        EV -33.24 -39.73 -25.11 1.0e-16
+# 5                  IAV/H1N1 -19.44 -23.70 -14.89 1.0e-16
+# 6  Seasonal CoV HKU1 + NL63 -17.93 -18.80 -17.04 1.0e-16
+# 7                  IAV/H3N2 -12.34 -16.81  -7.43 1.0e-16
+# 8  Seasonal CoV 229E + OC43  -9.60 -14.39  -4.92 1.0e-16
+# 9                        RV   1.51  -0.13   2.87 7.3e-02
+# 10          HPIV-3 + HPIV-4  13.78   8.81  18.09 1.0e-03
+# 11                     hMPV  19.45  16.11  22.23 1.0e-03
 
 # t-test ratio of means
 # i                                 mean        ci[1]      ci[2] p_value
@@ -236,23 +236,23 @@ df <- df %>%
   arrange(mean) %>%
   mutate_at(c("mean", "ci[2]", "ci[1]"), ~ 100 * .) %>%
   mutate_at(c("mean", "ci[2]", "ci[1]"), ~ round(., 2))
-df$p_value <- format.pval(df$p_value, digits = 2)
+# df$p_value <- format.pval(df$p_value, digits = 2)#report exact p-value in Table 2
 df
 
 ## nonparametric bootstrap
 #                           i   mean  ci[2]  ci[1] p_value
-# 1                  IAV/H1N1 -42.55 -53.58 -33.01  <2e-16
-# 2                SARS-CoV-2 -38.71 -54.41 -24.59  <2e-16
-# 3                Adenovirus -32.61 -44.77 -21.40  <2e-16
-# 4                        EV -30.77 -52.55 -12.83   0.003
-# 5                        RV -29.18 -32.02 -26.36  <2e-16
-# 6  Seasonal CoV HKU1 + NL63 -25.17 -27.83 -22.43  <2e-16
-# 7           HPIV-3 + HPIV-4 -21.53 -22.01 -21.02  <2e-16
-# 8                      hMPV -20.50 -22.03 -18.88  <2e-16
-# 9  Seasonal CoV 229E + OC43 -19.95 -20.80 -19.08  <2e-16
-# 10                      IBV -14.47 -17.19 -11.97  <2e-16
-# 11                    RSV A  -8.92 -13.23  -5.29  <2e-16
-# 12                    RSV B  -3.74  -5.25  -2.41  <2e-16
+# 1                  IAV/H1N1 -42.55 -53.58 -33.01 1.000000e-16
+# 2                SARS-CoV-2 -38.71 -54.41 -24.59 1.000000e-16
+# 3                Adenovirus -32.61 -44.77 -21.40 1.000000e-16
+# 4                        EV -30.77 -52.55 -12.83 3.003003e-03
+# 5                        RV -29.18 -32.02 -26.36 1.000000e-16
+# 6  Seasonal CoV HKU1 + NL63 -25.17 -27.83 -22.43 1.000000e-16
+# 7           HPIV-3 + HPIV-4 -21.53 -22.01 -21.02 1.000000e-16
+# 8                      hMPV -20.50 -22.03 -18.88 1.000000e-16
+# 9  Seasonal CoV 229E + OC43 -19.95 -20.80 -19.08 1.000000e-16
+# 10                      IBV -14.47 -17.19 -11.97 1.000000e-16
+# 11                    RSV A  -8.92 -13.23  -5.29 1.000000e-16
+# 12                    RSV B  -3.74  -5.25  -2.41 1.000000e-16
 
 ## t-test ratio of means
 #                           i       mean      ci[1]      ci[2] p_value

@@ -262,7 +262,7 @@ weekly_visitors_cbg_all_years <- as_tibble(weekly_visitors_cbg_all_years)
 head(weekly_visitors_cbg_all_years)
 
 weekly_visitors_cbg_all_years$start_date <- as.Date(weekly_visitors_cbg_all_years$start_date)
-range(weekly_visitors_cbg_all_years$start_date) # "2018-06-04" "2022-09-26"
+range(weekly_visitors_cbg_all_years$start_date) # "2018-10-29" "2022-09-26"
 
 # check for duplicates
 data.table(weekly_visitors_cbg_all_years)[, .N, by = .(home_cbg, poi_cbg, start_date)][N > 1]
@@ -500,7 +500,7 @@ range(weekly_visitors_cbg_within_seattle$start_date)
 
 weekly_visitors_cbg_within_seattle %>%
   filter(start_date == as.Date("2019-02-11") & home_location == "non_resident") %>%
-  summarize(net_movement = sum(scaled_visits_county)) # 986481
+  summarize(net_movement = sum(scaled_visits_county)) #  984572
 
 weekly_visitors_cbg_within_seattle %>%
   filter(start_date %in% c(
@@ -560,7 +560,7 @@ feb_2019_map <-
   scale_size(guide = "none") +
   ggtitle("Feb 2019 Snowstorm") +
   theme(plot.title = element_text(hjust = 0.5)) +
-  xlab("Net Movement = 986,481") +
+  xlab("Net Movement = 984,572") +
   ylab(NULL)
 feb_2019_map
 
@@ -577,9 +577,9 @@ degree_dist <- degree_distribution(mygraph) %>% as.data.frame()
 cbg_degree <- degree(mygraph, loops = F, normalized = F) %>% as.data.frame()
 colnames(cbg_degree) <- "degree"
 
-mean(cbg_degree$degree) # 16.69
+mean(cbg_degree$degree) # 16.67
 median(cbg_degree$degree) # 11
-range(cbg_degree$degree) # 1 186
+range(cbg_degree$degree) # 1 184
 
 feb_deg <- ggpubr::gghistogram(cbg_degree,
   x = "degree",
@@ -609,8 +609,8 @@ feb_deg_log
 ## weighted degree
 cbg_w_degree <- strength(mygraph, loops = F) %>% as.data.frame()
 colnames(cbg_w_degree) <- "degree"
-mean(cbg_w_degree$degree) # 4101.792
-median(cbg_w_degree$degree) # 2402.441
+mean(cbg_w_degree$degree) 
+median(cbg_w_degree$degree)
 range(cbg_w_degree$degree)
 feb_w_deg <- ggpubr::gghistogram(cbg_w_degree,
   x = "degree",
@@ -646,7 +646,7 @@ feb_2019_map_w_deg_log <- plot_grid(feb_2019_map, feb_deg_log, nrow = 2, rel_hei
 
 weekly_visitors_cbg_within_seattle %>%
   filter(start_date == as.Date("2019-07-22") & home_location == "non_resident") %>%
-  summarize(net_movement = sum(scaled_visits_county)) # 1141239
+  summarize(net_movement = sum(scaled_visits_county)) # 1139033
 
 jul_2019_map <- ggplot(seattle_map) +
   geom_sf(lwd = 0.1, alpha = 0.2) +
@@ -686,7 +686,7 @@ jul_2019_map <- ggplot(seattle_map) +
   scale_size(guide = "none") +
   ggtitle("July 2019") +
   theme(plot.title = element_text(hjust = 0.5)) +
-  xlab("Net Movement = 1,141,239") +
+  xlab("Net Movement =  1,139,033") +
   ylab(NULL)
 
 network_df <- weekly_visitors_cbg_within_seattle %>%
@@ -699,9 +699,9 @@ mygraph <- graph_from_data_frame(network_df, directed = F)
 degree_dist <- degree_distribution(mygraph) %>% as.data.frame()
 cbg_degree <- degree(mygraph, loops = F, normalized = F) %>% as.data.frame()
 colnames(cbg_degree) <- "degree"
-mean(cbg_degree$degree) # 18.25
-median(cbg_degree$degree) # 12
-range(cbg_degree$degree) # 1 187
+mean(cbg_degree$degree)
+median(cbg_degree$degree)
+range(cbg_degree$degree)
 
 jul_2019_deg <- ggpubr::gghistogram(cbg_degree,
   x = "degree",
@@ -729,9 +729,9 @@ jul_2019_log
 # weighted degree
 cbg_w_degree <- strength(mygraph, loops = F) %>% as.data.frame()
 colnames(cbg_w_degree) <- "degree"
-mean(cbg_w_degree$degree) # 4765.091
-median(cbg_w_degree$degree) # 2690.859
-range(cbg_w_degree$degree) # 121.2098 65574.5280
+mean(cbg_w_degree$degree)
+median(cbg_w_degree$degree)
+range(cbg_w_degree$degree)
 
 jul_2019_w_deg <- ggpubr::gghistogram(cbg_w_degree,
   x = "degree",
@@ -766,7 +766,7 @@ jul_2019_map_w_deg_log <- plot_grid(jul_2019_map, jul_2019_log, nrow = 2, rel_he
 
 weekly_visitors_cbg_within_seattle %>%
   filter(home_location == "non_resident" & start_date == as.Date("2020-03-16")) %>%
-  summarize(net_movement = sum(scaled_visits_county)) # 495373
+  summarize(net_movement = sum(scaled_visits_county)) # 495167
 
 march_2020_map <-
   ggplot(seattle_map) +
@@ -807,7 +807,7 @@ march_2020_map <-
   scale_size(guide = "none") +
   ggtitle("March 2020 Lockdown") +
   theme(plot.title = element_text(hjust = 0.5)) +
-  xlab("Net Movement = 495,373") +
+  xlab("Net Movement = 495,167") +
   ylab(NULL)
 march_2020_map
 
@@ -821,8 +821,8 @@ mygraph <- graph_from_data_frame(network_df, directed = F)
 degree_dist <- degree_distribution(mygraph) %>% as.data.frame()
 cbg_degree <- degree(mygraph, loops = F, normalized = F) %>% as.data.frame()
 colnames(cbg_degree) <- "degree"
-mean(cbg_degree$degree) # 8.55
-median(cbg_degree$degree) # 6
+mean(cbg_degree$degree)
+median(cbg_degree$degree)
 range(cbg_degree$degree)
 
 ## degree histogram
@@ -850,9 +850,9 @@ mar_2020_log
 
 cbg_w_degree <- strength(mygraph, loops = F) %>% as.data.frame()
 colnames(cbg_w_degree) <- "degree"
-mean(cbg_w_degree$degree) # 2103.5
-median(cbg_w_degree$degree) # 1287.687
-range(cbg_w_degree$degree) # 128.7687 21633.1353
+mean(cbg_w_degree$degree)
+median(cbg_w_degree$degree)
+range(cbg_w_degree$degree)
 
 # degree histogram
 mar_2020_w_deg <- ggpubr::gghistogram(cbg_w_degree,
@@ -893,7 +893,7 @@ mar_2020_map_w_deg_log
 
 weekly_visitors_cbg_within_seattle %>%
   filter(start_date == as.Date("2021-07-05") & home_location == "non_resident") %>%
-  summarize(net_movement = sum(scaled_visits_county)) # 722093
+  summarize(net_movement = sum(scaled_visits_county)) #721159
 
 july_2021_map <-
   ggplot(seattle_map) +
@@ -935,7 +935,7 @@ july_2021_map <-
   scale_size(guide = "none") +
   ggtitle("Delta Wave (July 2021)") +
   theme(plot.title = element_text(hjust = 0.5)) +
-  xlab("Net Movement =  722,093") +
+  xlab("Net Movement = 721,159") +
   ylab(NULL)
 july_2021_map
 
@@ -949,9 +949,9 @@ mygraph <- graph_from_data_frame(network_df, directed = F)
 degree_dist <- degree_distribution(mygraph) %>% as.data.frame()
 cbg_degree <- degree(mygraph, loops = F, normalized = F) %>% as.data.frame()
 colnames(cbg_degree) <- "degree"
-mean(cbg_degree$degree) # 10.4
-median(cbg_degree$degree) # 7
-range(cbg_degree$degree) # 1 119
+mean(cbg_degree$degree)
+median(cbg_degree$degree)
+range(cbg_degree$degree)
 
 ## degree histogram
 jul_2021_deg <- ggpubr::gghistogram(cbg_degree,
@@ -978,9 +978,9 @@ jul_2021_log
 
 cbg_w_degree <- strength(mygraph, loops = F) %>% as.data.frame()
 colnames(cbg_w_degree) <- "degree"
-mean(cbg_w_degree$degree) # 3046.8
-median(cbg_w_degree$degree) # 1677
-range(cbg_w_degree$degree) # 137.4368 45216.7160
+mean(cbg_w_degree$degree)
+median(cbg_w_degree$degree)
+range(cbg_w_degree$degree)
 
 # weighted degree
 jul_2021_w_deg <- ggpubr::gghistogram(cbg_w_degree,
@@ -1021,8 +1021,7 @@ jul_2021_map_w_deg_log
 weekly_visitors_cbg_within_seattle %>%
   filter(home_location == "non_resident" &
     start_date == as.Date("2022-01-17")) %>%
-  summarize(net_movement = sum(scaled_visits_county))
-# 703461
+  summarize(net_movement = sum(scaled_visits_county))#   703591
 
 weekly_visitors_cbg_within_seattle %>%
   filter(home_location == "non_resident" &
@@ -1069,7 +1068,7 @@ jan_2022_map <-
   scale_size(guide = "none") +
   ggtitle("Omicron Wave (January 2022)") +
   theme(plot.title = element_text(hjust = 0.5)) +
-  xlab("Net Movement = 703,461") +
+  xlab("Net Movement = 703,591") +
   ylab(NULL)
 
 network_df <- weekly_visitors_cbg_within_seattle %>%
@@ -1082,9 +1081,9 @@ mygraph <- graph_from_data_frame(network_df, directed = F)
 degree_dist <- degree_distribution(mygraph) %>% as.data.frame()
 cbg_degree <- degree(mygraph, loops = F, normalized = F) %>% as.data.frame()
 colnames(cbg_degree) <- "degree"
-mean(cbg_degree$degree) # 10
-median(cbg_degree$degree) # 7
-range(cbg_degree$degree) # 1 107
+mean(cbg_degree$degree)
+median(cbg_degree$degree)
+range(cbg_degree$degree)
 
 ## degree histogram
 jan_2022_deg <- ggpubr::gghistogram(cbg_degree,
@@ -1112,9 +1111,9 @@ jan_2022_log
 ## weighted degree centrality
 cbg_w_degree <- strength(mygraph, loops = F) %>% as.data.frame()
 colnames(cbg_w_degree) <- "degree"
-mean(cbg_w_degree$degree) # 2999.833
-median(cbg_w_degree$degree) # 1618
-range(cbg_w_degree$degree) # 130.5461 62009.4022
+mean(cbg_w_degree$degree) 
+median(cbg_w_degree$degree)
+range(cbg_w_degree$degree)
 
 jan_2022_w_deg <- ggpubr::gghistogram(cbg_w_degree,
   x = "degree",
@@ -1188,7 +1187,7 @@ july_2021_map <-
   scale_size(guide = "none") +
   ggtitle("Delta Wave (July 2021)") +
   theme(plot.title = element_text(hjust = 0.5)) +
-  xlab("Net Movement =  722,093") +
+  xlab("Net Movement = 721,159") +
   ylab(NULL)
 july_2021_map
 
@@ -1660,6 +1659,8 @@ all_between_movement %>%
   tally() %>%
   filter(n != 1)
 
+range(all_between_movement$start_date)
+
 write_rds(all_between_movement, file = paste0(dir, "SG_data/within_and_between_cbg_movement_indicators_up_to_2022_09_26.rds"))
 # all_between_movement <- read_rds(paste0(dir, "SG_data/within_and_between_cbg_movement_indicators_up_to_2022_09_26.rds"))
 
@@ -1674,7 +1675,7 @@ all_between_movement_lim <- all_between_movement %>%
     within_state_movement = within_state_movement_king,
     out_of_state_movement = out_of_state_movement_king
   )
-write_rds(all_between_movement_lim, file = paste0(dir, "within_and_between_cbg_movement_indicators_up_to_2022_09_26_red.rds"))
+write_rds(all_between_movement_lim, file = paste0(dir, "SG_data/within_and_between_cbg_movement_indicators_up_to_2022_09_26_red.rds"))
 
 ############################################################
 ## visits to different categories of POIs

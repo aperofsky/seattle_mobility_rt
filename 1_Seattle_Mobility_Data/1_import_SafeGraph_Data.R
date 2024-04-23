@@ -97,6 +97,7 @@ all_panel_US_dt %>%
 
 # directory for storing raw mobility data outputs
 dir <- "~/Seattle_Flu_Study/Seattle_SG_Mobility/"
+dir <- "~/OneDrive - National Institutes of Health/NIH_Laptop_Updates_Post_Damage/Documents/Seattle_Flu_Study/Seattle_SG_Mobility/"
 write_rds(all_panel_US, file = paste0(dir, "SG_data/Safegraph_daily_panel_devices_by_CBG_2018_to_2022.rds")) # daily panel size by CBG
 # all_panel_US = read_rds(paste0(dir,"SG_data/Safegraph_daily_panel_devices_by_CBG_2018_to_2022.rds"))
 
@@ -115,6 +116,7 @@ ggplot(all_panel_US_by_county %>% as_tibble() %>% filter(state_fips == "53" & co
   geom_vline(aes(xintercept = as.Date("2018-05-01")))
 
 all_panel_US_dt <- lazy_dt(all_panel_US_by_county)
+
 ## check for duplicates
 all_panel_US_dt %>%
   group_by(state_fips, county_fips, start_date) %>%
@@ -136,7 +138,7 @@ ggplot(all_panel_US %>% as_tibble() %>% filter(state_fips == "53" & county_fips 
 
 # remove big files we don't need anymore
 # rm(all_panel_US)
-rm(panel_current)
+# rm(panel_current)
 rm(all_panel)
 
 ####################################################
@@ -275,7 +277,6 @@ all_visit_panel_US <- as_tibble(all_visit_panel_US_dt)
 
 write_rds(all_visit_panel_US, file = paste0(dir, "SG_data/Safegraph_daily_visit_panel_2018_to_2022.rds"))
 # all_visit_panel_US <- read_rds(paste0(dir,"SG_data/Safegraph_daily_visit_panel_2018_to_2022.rds"))
-
 # rm(visit_panel)
 unique(all_visit_panel_US$region)
 
@@ -346,7 +347,7 @@ df_filt_dt <- lazy_dt(df_filt)
 
 sort(unique(df_filt$start_date))
 
-## initially limit to June 2018 onwards
+## initially limit to late Oct 2018 onwards
 all_df_filt <- df_filt_dt %>%
   unique() %>%
   # filter(start_date >= as.Date("2018-06-01")) %>%

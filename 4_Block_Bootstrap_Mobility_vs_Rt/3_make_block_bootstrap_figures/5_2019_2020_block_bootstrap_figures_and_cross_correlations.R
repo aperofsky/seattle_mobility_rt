@@ -136,7 +136,7 @@ fall_2019_rt <- ggplot() +
       dplyr::select(epi_date, level, organism, lower, upper) %>%
       filter(level == 90) %>%
       distinct() %>% droplevels(),
-    aes(x = epi_date, ymin = lower, ymax = upper, fill = organism), alpha = 0.8
+    aes(x = epi_date, ymin = lower, ymax = upper, fill = organism), alpha = 0.5
   ) +
   theme_bw(base_size = 12) +
   scale_x_date(date_breaks = "2 months", date_labels = "%b %y", expand = c(0.02, 0.02)) +
@@ -237,7 +237,7 @@ fall_2019_rt_red <- ggplot() +
       dplyr::select(epi_date, level, organism, lower, upper) %>%
       filter(level == 90) %>%
       distinct() %>% droplevels(),
-    aes(x = epi_date, ymin = lower, ymax = upper, fill = organism), alpha = 0.8
+    aes(x = epi_date, ymin = lower, ymax = upper, fill = organism), alpha = 0.5
   ) +
   theme_bw(base_size = 16) +
   scale_x_date(date_breaks = "2 months", date_labels = "%b %y", expand = c(0.02, 0.02)) +
@@ -302,7 +302,7 @@ all_path_ccf %>%
   group_by(pathogen, mobility_metric) %>%
   slice_max(obs_max_ccf) %>%
   arrange(-obs_max_ccf)
-## hpiv, rsv, adv, flu, hcov, hmpv
+## hpiv, rsv, flu, hmpv
 
 ## min values
 all_path_ccf %>%
@@ -446,13 +446,15 @@ all_path_ccf %>%
   filter(n > 3)
 # pathogen         mobility_metric                n
 # <fct>            <fct>                      <int>
-# 1 hMPV             "Religious\norganizations"    16
-# 2 Influenza B      "Religious\norganizations"    12
-# 3 RSV A            "Religious\norganizations"    11
-# 4 hPIV 1 + 2       "Religious\norganizations"    10
-# 5 hPIV 3 + 4       "Religious\norganizations"     8
-# 6 RSV B            "Religious\norganizations"     7
-# 7 hCoV HKU1 + NL63 "Religious\norganizations"     7
+# 1 Influenza B      "Religious\norganizations"    12
+# 2 RSV A            "Religious\norganizations"    12
+# 3 hMPV             "Religious\norganizations"    12
+# 4 RSV B            "Religious\norganizations"    10
+# 5 hCoV HKU1 + NL63 "Religious\norganizations"    10
+# 6 hPIV 1 + 2       "Religious\norganizations"    10
+# 7 Influenza A/H1N1 "Religious\norganizations"     6
+# 8 hPIV 3 + 4       "Religious\norganizations"     6
+# 9 Adenovirus       "Religious\norganizations"     4
 
 keep <- all_path_ccf %>%
   filter(pathogen != "SARS-CoV-2" & mobility_metric == "Religious\norganizations") %>%
@@ -480,7 +482,7 @@ all_path_ccf %>%
   group_by(pathogen, mobility_metric) %>%
   slice_max(obs_max_ccf) %>%
   arrange(-obs_max_ccf)
-## flu, rsv, hmpv, hcov, hpiv, adv
+## flu, rsv, hmpv, hcov, hpiv
 
 # min values
 all_path_ccf %>%
@@ -586,7 +588,7 @@ all_path_ccf %>%
   slice_max(obs_max_ccf) %>%
   # filter(obs_max_ccf>0.5)%>%
   arrange(-obs_max_ccf)
-## late nov/dec
+## nov - jan
 
 all_path_ccf %>%
   filter(pathogen %in% keep & mobility_metric == "Between-neighborhood\nmovement") %>%
@@ -726,7 +728,7 @@ all_path_ccf %>%
   group_by(pathogen, mobility_metric) %>%
   slice_max(obs_max_ccf) %>%
   arrange(-obs_max_ccf)
-# hcov, rsv, hpiv, rv, flu
+# hcov, rsv, hpiv, flu
 
 # min values
 all_path_ccf %>%
@@ -853,7 +855,7 @@ spring_2020_rt <- ggplot() +
                epi_date < as.Date("2020-06-30")) %>%
       dplyr::select(epi_date, median, organism) %>%
       distinct() %>% droplevels(),
-    aes(x = epi_date, y = median, color = organism), lwd = 1.2, lty = "solid"
+    aes(x = epi_date, y = median, color = organism), lwd = 1.5, lty = "solid"
   ) +
   geom_ribbon(
     data = rt_weekly %>%
@@ -863,14 +865,17 @@ spring_2020_rt <- ggplot() +
       dplyr::select(epi_date, level, organism, lower, upper) %>%
       filter(level == 90) %>%
       distinct() %>% droplevels(),
-    aes(x = epi_date, ymin = lower, ymax = upper, fill = organism), alpha = 0.9
+    aes(x = epi_date, ymin = lower, ymax = upper, fill = organism), alpha = 0.5
   ) +
   theme_bw(base_size = 16) +
   scale_x_date(date_breaks = "3 months", date_labels = "%b %y", expand = c(0.02, 0.02)) +
   scale_y_continuous(
     labels = scales::number_format(accuracy = 0.1)
   ) +
-  theme(legend.position = "none", strip.background = element_blank(), strip.text = element_text(size = 12)) +
+  theme(legend.position = "none", 
+        strip.background = element_blank(),
+        axis.text = element_text(size=10),
+        strip.text = element_text(size = 12)) +
   scale_color_manual(values = color_vec) +
   scale_fill_manual(values = color_vec) +
   facet_wrap(~organism, nrow = 1, scales = "free_y") +
@@ -878,7 +883,8 @@ spring_2020_rt <- ggplot() +
   xlab("Epidemic Week")
 spring_2020_rt
 
-rt_top <- plot_grid(NULL, spring_2020_rt, NULL, rel_widths = c(0.1, 9, 0.9), nrow = 1)
+rt_top <- plot_grid(NULL, spring_2020_rt, NULL, rel_widths = c(0.05, 9, 0.9), nrow = 1)
 rt_mob_spring_2020 <- plot_grid(rt_top, spring_2020_plot, nrow = 2, rel_heights = c(1.5, 12), labels = "AUTO")
 rt_mob_spring_2020
-save_plot(rt_mob_spring_2020, file = "figures/fig_s11_block_bootstrap_spring_2020_spearman_neg_lags.png", base_width = 24, base_height = 16)
+save_plot(rt_mob_spring_2020, file = "figures/fig_s11_block_bootstrap_spring_2020_spearman_neg_lags.png", 
+          base_width = 24, base_height = 16)

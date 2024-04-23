@@ -19,15 +19,15 @@ dir <- "~/OneDrive - National Institutes of Health/NIH_Laptop_Updates_Post_Damag
 
 ## Safegraph large scale pop movements (note: cannot provide input file due to Dewey's DUA)
 movement <- read_rds(paste0(dir, "within_and_between_cbg_movement_indicators_up_to_2022_09_26_red.rds"))
-range(movement$start_date) # "2018-06-04" "2022-09-26"
+range(movement$start_date) # "2018-10-29" "2022-09-26"
 head(movement) # raw counts adjusted by panel size
 names(movement)
 
 ## Safegraph visits to categories of POIs (note: cannot provide input file due to Dewey's DUA)
 seattle_daily_visits_naics_all_years <- read_rds(paste0(dir, "seattle_daily_visits_naics.rds"))
 head(seattle_daily_visits_naics_all_years) # visits to categories of pois adjusted by panel size
-range(seattle_daily_visits_naics_all_years$date) # "2018-06-04" "2022-10-02"
-unique(seattle_daily_visits_naics_all_years$industry) # 283 categories
+range(seattle_daily_visits_naics_all_years$date) #"2018-10-29" "2022-10-02"
+length(unique(seattle_daily_visits_naics_all_years$industry)) # 284 categories
 names(seattle_daily_visits_naics_all_years)
 
 ## External data sources: King Co. masking survey data, Oxford stringency stringency, FB stay put
@@ -143,7 +143,7 @@ unique(naics_filt$industry)
 naics_wide <- naics_filt %>%
   dplyr::select(-visits_by_day, -start_date) %>%
   pivot_wider(names_from = industry, values_from = visits_fixed) %>%
-  filter(date >= as.Date("2018-06-01"))
+  filter(date >= as.Date("2018-10-01"))
 
 ##########################################################################
 ## Join SG datasets
