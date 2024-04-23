@@ -42,14 +42,14 @@ renv::restore() #install the specific package versions recorded in the lockfile 
 
 * `6_LASSO_Predictive_Models` : Use moving window LASSO regression models to produce short-term forecasts of rhinovirus, adenovirus, and SARS-CoV-2 Rt. Model covariates include the activity of the target virus during the previous 2 weeks (14 autoregressive terms), cell phone mobility trends, the co-circulation of other viruses, and climatic data. Compare prediction accuracy across models with different combinations of covariates. The README file within the folder includes more details about model inputs.
 
-### Other folders 
-* `Main_Text_Figures`: Code to produce main text figures that meet the journal guidelines.
-* `renv`: Stores the library that contains all R packages used in the project.
-
 **An overview of statistical analyses and their various inputs.** Dark blue boxes correspond to inputs derived from Seattle Flu Study (SFS) data, light blue boxes correspond to inputs from external data sources, and purple boxes correspond to statistical analyses.
 <figure>
 <img src="figures/fig_s28_flowchart_paper_analyses.png" alt="analysis flowchart"/>
 </figure>
+
+### Other folders 
+* `Main_Text_Figures`: Code to produce main text figures that meet the journal guidelines.
+* `renv`: Stores the library that contains all R packages used in the project.
 
 ## Data Availability
 
