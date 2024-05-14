@@ -309,10 +309,11 @@ cont_rt2 <- cont_rt +
 
 ## combine rt and mobility plots
 rt_top <- plot_grid(NULL, cont_rt2, NULL, rel_widths = c(0.15, 9, 1.3), nrow = 1)
-rt_mob_cont <- plot_grid(rt_top, covid_mob_red, nrow = 2, rel_heights = c(2, 10), labels = NULL)
+rt_mob_cont <- plot_grid(rt_top, covid_mob_red, nrow = 2, rel_heights = c(2, 10), labels = "AUTO", label_size = 7)
 rt_mob_cont
 
 save_plot(rt_mob_cont,
   file = "figures/fig_5_block_bootstrap_covid_5mo_moving_window_select_mobility_indicators_neg_lags.pdf",
   units = "mm", base_width = 180, base_height = 160, dpi = 300
 )
+
