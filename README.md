@@ -1,5 +1,5 @@
 # seattle_mobility_rt
-Code and data to reproduce the results and figures in Perofsky _et al._ 2023. "Impacts of human mobility on the citywide transmission dynamics of 18 respiratory viruses in pre- and post-COVID-19 pandemic years." [Preprint](https://doi.org/10.1101/2023.10.31.23297868)
+Code and data to reproduce the results and figures in Perofsky _et al._ 2024. "Impacts of human mobility on the citywide transmission dynamics of 18 respiratory viruses in pre- and post-COVID-19 pandemic years." [Preprint](https://doi.org/10.1101/2023.10.31.23297868)
 
 Corresponding author: Amanda Perofsky (acperof@uw.edu)
 
@@ -12,10 +12,10 @@ Data processing and statistical analyses are performed with the statistical comp
 
 R code was tested on a 2021 MacBook Pro Apple M1 Max with 10 cores and 32GB RAM.
 ```
-> sessionInfo()
-R version 4.3.1 (2023-06-16)
-Platform: aarch64-apple-darwin20 (64-bit)
-Running under: macOS Sonoma 14.4
+sessionInfo()
+# R version 4.3.1 (2023-06-16)
+# Platform: aarch64-apple-darwin20 (64-bit)
+# Running under: macOS Sonoma 14.4
 ```
 
  We used the National Institutes of Health's [Biowulf HPC cluster](https://hpc.nih.gov/) to fit transmission models and perform block bootstrapping of time series cross-correlations. The NIH Biowulf cluster is a 95,000+ core/30+ PB Linux cluster. Biowulf is designed for large numbers of simultaneous jobs common in the biosciences. [Information about Biowulf's hardware](https://hpc.nih.gov/systems/hardware.html). Biowulf used R version 4.2 at the time the code was originally written.
