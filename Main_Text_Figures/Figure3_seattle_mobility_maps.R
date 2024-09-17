@@ -30,13 +30,13 @@ library(ggpubr)
 
 ## get API key here: https://api.census.gov/data/key_signup.html
 # Add key to .Renviron
-Sys.setenv(CENSUS_KEY = "your key")
+# Sys.setenv(CENSUS_KEY = "your key")
 # Reload .Renviron
 readRenviron("~/.Renviron")
 # Check to see that the expected key is output in your R console
 Sys.getenv("CENSUS_KEY")
 
-dir <- "~/Documents/Seattle_Flu_Study/Seattle_SG_Mobility/"
+dir <- "~/OneDrive - National Institutes of Health/NIH_Laptop_Updates_Post_Damage/Documents/Seattle_Flu_Study/Seattle_SG_Mobility/"
 # ####################################################
 # ## Seattle Mobility Network Maps: Figure 3 in main text
 # ####################################################
@@ -174,6 +174,8 @@ feb_deg_log
 feb_2019_map_w_deg_log <- plot_grid(feb_2019_map, feb_deg_log, nrow = 2, rel_heights = c(6, 2), labels = c("A", "B"), label_size = 7)
 feb_2019_map_w_deg_log
 
+feb_2019_map_w_deg_log <- plot_grid(feb_2019_map, feb_deg_log, nrow = 2, rel_heights = c(6, 2), labels = NA, label_size = 7)
+feb_2019_map_w_deg_log
 ####################################################
 ## july 2019 baseline
 ####################################################
@@ -589,4 +591,10 @@ map_combined_and_hist
 save_plot(map_combined_and_hist,
   filename = "figures/fig_3_within_seattle_movement_up_to_Jan_2022_with_log_trans_deg_histogram.pdf",
   units = "mm", base_width = 180, base_height = 90, dpi = 300
+)
+
+#presentation
+save_plot(map_combined_and_hist,
+          filename = "figures/presentation_within_seattle_movement_up_to_Jan_2022_with_log_trans_deg_histogram.png",
+          units = "mm", base_width = 180, base_height = 90, dpi = 300
 )

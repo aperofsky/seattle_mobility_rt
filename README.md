@@ -28,6 +28,8 @@ install.packages("renv") # if renv is not already installed
 renv::restore() #install the specific package versions recorded in the lockfile (renv.lock)
 ```
 
+When writing and revising the article, we wrote the R code and generated the `renv` lockfile using R version 4.3.1. If you have a more recent release than 4.3 installed, I recommend using [`rig`](https://github.com/r-lib/rig) to switch from 4.4 to 4.3 within the R project so that the code doesn't break. `rig` streamlines the installation and configuration of mulitple versions of R and works on macOS, Windows and Linux.
+
 ## Analyses are split into 6 folders: 
 
 * `1_Seattle_Mobility_Data`: Create cell phone mobility datasets for King County, WA. Combine mobility data with data on masking and the stringency of non-pharmaceutical interventions (NPIs). See README file within the folder for more details.
